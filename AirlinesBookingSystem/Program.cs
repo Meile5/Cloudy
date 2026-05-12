@@ -1,7 +1,13 @@
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using AirlinesBookingSystem;
 
-var builder = Host.CreateApplicationBuilder(args);
-builder.Services.AddHostedService<Worker>();
+
+var builder = WebApplication.CreateBuilder();
+//builder.Services.AddHostedService<Worker>();
+
 
 var host = builder.Build();
 host.Run();
