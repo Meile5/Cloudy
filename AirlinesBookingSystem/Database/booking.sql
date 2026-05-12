@@ -1,4 +1,4 @@
-﻿
+﻿-- original sql was a mix of mssql and postgres, I changed it to mssql bc thats easier (postgres doesn't have "create if not exists" for database)
 IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'booking-db')
 BEGIN
         CREATE DATABASE [booking-db];
@@ -22,8 +22,8 @@ CREATE TABLE passengers (
 
                             frequent_flyer_number VARCHAR(100),
 
-                            created_at TIMESTAMP DEFAULT NOW(),
-                            updated_at TIMESTAMP DEFAULT NOW()
+                            created_at datetime DEFAULT GETDATE(),
+                            updated_at datetime DEFAULT GETDATE()
 );
 
 
@@ -35,8 +35,8 @@ CREATE TABLE flights (
                          origin_airport CHAR(3) NOT NULL,
                          destination_airport CHAR(3) NOT NULL,
 
-                         departure_time TIMESTAMP NOT NULL,
-                         arrival_time TIMESTAMP NOT NULL,
+                         departure_time datetime NOT NULL,
+                         arrival_time datetime NOT NULL,
 
                          aircraft_id VARCHAR(50),
 
@@ -45,8 +45,8 @@ CREATE TABLE flights (
                          base_fare NUMERIC(10,2) NOT NULL,
                          currency CHAR(3) NOT NULL DEFAULT 'USD',
 
-                         created_at TIMESTAMP DEFAULT NOW(),
-                         updated_at TIMESTAMP DEFAULT NOW()
+                         created_at datetime DEFAULT GETDATE(),
+                         updated_at datetime DEFAULT GETDATE()
 );
 
 
@@ -69,8 +69,8 @@ CREATE TABLE seats (
 
                        price NUMERIC(10,2) NOT NULL,
 
-                       created_at TIMESTAMP DEFAULT NOW(),
-                       updated_at TIMESTAMP DEFAULT NOW(),
+                       created_at datetime DEFAULT GETDATE(),
+                       updated_at datetime DEFAULT GETDATE()
 
                        CONSTRAINT unique_flight_seat
                            UNIQUE (flight_id, seat_number)
@@ -100,8 +100,6 @@ CREATE INDEX idx_seats_flight
 CREATE INDEX idx_bookings_passenger
     ON bookings(passenger_id);
 
-CREATE INDEX idx_payments_booking
-    ON payments(booking_id);
 
 
 
@@ -120,23 +118,12 @@ ALTER TABLE seats
                 )
             );
 
-ALTER TABLE bookings
-    ADD CONSTRAINT chk_booking_status
-        CHECK (
-            booking_status IN (
-                               'pending',
-                               'confirmed',
-                               'cancelled',
-                               'refunded'
-                )
-            );
-
 
 
 -- =========================================
 -- SAMPLE BOOKING TRANSACTION
 -- =========================================
-
+/*
 BEGIN;
 
 -- 1. Lock seat row
@@ -178,3 +165,4 @@ SET status = 'sold',
 WHERE id = 99122;
 
 COMMIT;
+*/
