@@ -1,9 +1,10 @@
 ﻿using AirlinesBookingSystem.Interfaces.Repositories;
+using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
 
 namespace AirlinesBookingSystem.Services;
 
-public class SeatService(ISeatRepository repo)
+public class SeatService(ISeatRepository repo) : ISeatService
 {
     public async Task<List<Seat>> GetAllSeats()
     {

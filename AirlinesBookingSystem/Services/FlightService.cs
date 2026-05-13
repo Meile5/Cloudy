@@ -1,16 +1,17 @@
 ﻿using AirlinesBookingSystem.Interfaces.Repositories;
+using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
 
 namespace AirlinesBookingSystem.Services;
 
-public class FlightService(IFlightRepository repo)
+public class FlightService(IFlightRepository repo) : IFlightService
 {
-    public async Task<List<Flight>> GetAllBookings()
+    public async Task<List<Flight>> GetAllFlights()
     {
         return await repo.GetAllFlights();
     }
     
-    public async Task<Flight> GetBookingById(string flightId)
+    public async Task<Flight> GetFlightById(string flightId)
     {
         try
         {

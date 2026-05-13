@@ -1,9 +1,10 @@
 ﻿using AirlinesBookingSystem.Interfaces.Repositories;
+using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
 
 namespace AirlinesBookingSystem.Services;
 
-public class PassengerService(IPassengerRepository repo)
+public class PassengerService(IPassengerRepository repo) : IPassengerService
 {
     public async Task<List<Passenger>> GetAllPassengers()
     {
