@@ -1,10 +1,11 @@
 ﻿using AirlinesBookingSystem.Database;
+using AirlinesBookingSystem.Interfaces.Repositories;
 using AirlinesBookingSystem.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirlinesBookingSystem.Repositories;
 
-public class SeatRepository(BookingContext context)
+public class SeatRepository(BookingContext context) : ISeatRepository
 {
     public async Task<List<Seat>> GetAllSeats()
     {

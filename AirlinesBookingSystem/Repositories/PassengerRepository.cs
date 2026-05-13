@@ -1,10 +1,11 @@
 ﻿using AirlinesBookingSystem.Database;
+using AirlinesBookingSystem.Interfaces.Repositories;
 using AirlinesBookingSystem.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirlinesBookingSystem.Repositories;
 
-public class PassengerRepository(BookingContext context)
+public class PassengerRepository(BookingContext context) : IPassengerRepository
 {
     public async Task<List<Passenger>> GetAllPassengers()
     {
