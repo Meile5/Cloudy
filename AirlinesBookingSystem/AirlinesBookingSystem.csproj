@@ -6,7 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>dotnet-AirlinesBookingSystem-d1d9029c-f14d-49c7-9930-afd8288fc473</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <LangVersion>10</LangVersion>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -24,7 +24,9 @@
       <Folder Include="Caching\" />
       <Folder Include="Controllers\" />
       <Folder Include="Events\" />
+      <Folder Include="Models\" />
       <Folder Include="Mongo\" />
+      <Folder Include="Services\" />
     </ItemGroup>
 
     <ItemGroup>

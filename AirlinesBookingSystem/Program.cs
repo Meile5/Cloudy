@@ -8,6 +8,11 @@ using AirlinesBookingSystem;
 var builder = WebApplication.CreateBuilder();
 //builder.Services.AddHostedService<Worker>();
 
+builder.Services.AddControllers();
+
 
 var host = builder.Build();
+
+host.MapControllers();
+
 host.Run();
