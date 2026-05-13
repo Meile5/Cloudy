@@ -1,4 +1,5 @@
-﻿using AirlinesBookingSystem.Interfaces.Services;
+﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +10,7 @@ namespace AirlinesBookingSystem.Controllers;
 public class SeatController(ISeatService service) : ControllerBase
 {
     [HttpGet]
-    [Route("/Get-All")]
+    [Route("/Get-All-Seats")]
     public async Task<IActionResult> GetAllSeats()
     {
         var allFlights = await service.GetAllSeats();
@@ -19,7 +20,7 @@ public class SeatController(ISeatService service) : ControllerBase
     }
     
     /*[HttpGet]
-    [Route("/Get-Id")]
+    [Route("/Get-Seat-By-Id")]
     public async Task<IActionResult> GetSeatById([FromQuery] string seatId)
     {
         var flight = await service.GetSeatById(seatId);
@@ -29,23 +30,23 @@ public class SeatController(ISeatService service) : ControllerBase
     }*/
     
     [HttpPost]
-    [Route("/Add")]
-    public async Task<IActionResult> AddSeat(Seat seat)
+    [Route("/Add-Seat")]
+    public async Task<IActionResult> AddSeat([FromBody] CreateSeatDto seat)
     {
         await service.AddSeat(seat);
         return Ok();
     }
     
     [HttpPut]
-    [Route("/Update")]
-    public async Task<IActionResult> UpdateSeat(Seat seat)
+    [Route("/Update-Seat")]
+    public async Task<IActionResult> UpdateSeat([FromBody] Seat seat)
     {
         await service.UpdateSeat(seat);
         return Ok();
     }
     
     /*[HttpDelete]
-    [Route("/Delete")]
+    [Route("/Delete-Seat")]
     public async Task<IActionResult> DeleteSeat(string seatId)
     {
         await service.DeleteSeat(seatId);

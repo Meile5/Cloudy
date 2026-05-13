@@ -11,7 +11,7 @@ public class BookingController(IBookingService service) : ControllerBase
 {
     
     [HttpGet]
-    [Route("/Get-All")]
+    [Route("/Get-All-Bookings")]
     public async Task<IActionResult> GetAllBookings()
     {
         var allBookings = await service.GetAllBookings();
@@ -21,7 +21,7 @@ public class BookingController(IBookingService service) : ControllerBase
     }
     
     /*[HttpGet]
-    [Route("/Get-Id")]
+    [Route("/Get-Booking-By-Id")]
     public async Task<IActionResult> GetBookingById([FromQuery] string bookingId)
     {
         var booking = await service.GetBookingById(bookingId);
@@ -31,7 +31,7 @@ public class BookingController(IBookingService service) : ControllerBase
     }*/
     
     [HttpPost]
-    [Route("/Add")]
+    [Route("/Add-Booking")]
     public async Task<IActionResult> AddBooking(Booking booking)
     {
         await service.AddBooking(booking);
@@ -39,7 +39,7 @@ public class BookingController(IBookingService service) : ControllerBase
     }
     
     [HttpPut]
-    [Route("/Update")]
+    [Route("/Update-Booking")]
     public async Task<IActionResult> UpdateBooking(Booking booking)
     {
         await service.UpdateBooking(booking);
@@ -47,7 +47,7 @@ public class BookingController(IBookingService service) : ControllerBase
     }
     
     /*[HttpDelete]
-    [Route("/Delete")]
+    [Route("/Delete-Booking")]
     public async Task<IActionResult> DeleteBooking(string bookingId)
     {
         await service.DeleteBooking(bookingId);

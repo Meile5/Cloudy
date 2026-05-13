@@ -1,4 +1,5 @@
-﻿using AirlinesBookingSystem.Interfaces.Repositories;
+﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.Interfaces.Repositories;
 using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
 
@@ -26,14 +27,15 @@ public class SeatService(ISeatRepository repo) : ISeatService
         
     }
     
-    public async Task AddSeat(Seat passenger)
+    public async Task AddSeat(CreateSeatDto seat)
     {
-        await repo.AddSeat(passenger);
+        var newSeat = CreateSeatDto.ToSeat(seat);
+        await repo.AddSeat(newSeat);
     }
     
-    public async Task UpdateSeat(Seat passenger)
+    public async Task UpdateSeat(Seat seat)
     {
-        await repo.UpdateSeat(passenger);
+        await repo.UpdateSeat(seat);
     }
     
     public async Task DeleteSeat(string seatId)

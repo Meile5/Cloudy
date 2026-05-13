@@ -1,0 +1,43 @@
+//example of the result of a search for available seats in flight
+{
+  "id" : "b2e51516-3850-40c5-a7d2-0002b0e71187",
+  "flightNumher" : "349-b",
+  "originAiport" : "CPH",
+  "destinationAiport" : "BKK",
+  "departureTime" : "2026-05-13T15:37:05.711Z",
+  "arrivalTime" : "2026-05-14T17:40:00.711Z",
+  "currency" : "DKK",
+  //this would get updated via events whenever a seat is sold/refunded
+  "availableSeats" : [
+    {
+      "id" : "21ae1d9d-3d94-4a47-9fa8-602e85a32e1f",
+      "seatNumber" : "7C",
+      "price" : "6,250",
+      "cabinClass": "economy"
+    },
+    {
+      "id" : "76163978-66f6-42fe-a9b9-c094bb552528",
+      "seatNumber" : "13A",
+      "price" : "6,250",
+      "cabinClass": "economy"
+    },
+    {
+      "id" : "af042a68-d445-48cb-93cc-f1ad30c6d22d",
+      "seatNumber" : "13B",
+      "price" : "6,250",
+      "cabinClass": "economy"
+    },
+    {
+      "id" : "56611136-a2e0-4033-9d27-94aaf054b438",
+      "seatNumber" : "43C",
+      "price" : "8,500",
+      "cabinClass": "business"
+    },
+    {
+      "id" : "ea0cf2fe-91e0-4411-8f96-abe67c08e200",
+      "seatNumber" : "50A",
+      "price" : "8,500",
+      "cabinClass": "business"
+    }
+  ]
+}

@@ -1,19 +1,31 @@
-using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using AirlinesBookingSystem;
+using AirlinesBookingSystem.Database;
 using AirlinesBookingSystem.Interfaces.Repositories;
 using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Repositories;
 using AirlinesBookingSystem.Services;
 using AirlinesFlightsystem.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi;
 
 
-var builder = WebApplication.CreateBuilder();
+var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddHostedService<Worker>();
 
 builder.Services.AddControllers();
+
+var connectionString = builder.Configuration["ConnectionString"];
+
+builder.Services.AddDbContext<BookingContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+});
+
+
+
 
 //dependency injection
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
@@ -26,8 +38,20 @@ builder.Services.AddScoped<IFlightService, FlightService>();
 builder.Services.AddScoped<IPassengerService, PassengerService>();
 builder.Services.AddScoped<ISeatService, SeatService>();
 
+
 var host = builder.Build();
 
 host.MapControllers();
+
+if (host.Environment.IsDevelopment())
+{
+    //host.MapOpenApi();
+    host.UseSwagger();
+    //host.UseSwaggerUi(options => { options.DocumentPath = "/openapi/v1.json"; });
+    //host.UseSwaggerUi(options => { options.DocumentPath = "/swagger/v1/swagger.json"; });
+    host.UseSwaggerUI();
+}
+
+
 
 host.Run();

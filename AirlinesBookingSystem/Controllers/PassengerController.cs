@@ -9,7 +9,7 @@ namespace AirlinesBookingSystem.Controllers;
 public class PassengerController(IPassengerService service) : ControllerBase
 {
     [HttpGet]
-    [Route("/Get-All")]
+    [Route("/Get-All-Passengers")]
     public async Task<IActionResult> GetAllPassengers()
     {
         var allFlights = await service.GetAllPassengers();
@@ -19,7 +19,7 @@ public class PassengerController(IPassengerService service) : ControllerBase
     }
     
     /*[HttpGet]
-    [Route("/Get-Id")]
+    [Route("/Get-Passneger-By-Id")]
     public async Task<IActionResult> GetPassengerById([FromQuery] string passengerId)
     {
         var flight = await service.GetPassengerById(passengerId);
@@ -29,7 +29,7 @@ public class PassengerController(IPassengerService service) : ControllerBase
     }*/
     
     [HttpPost]
-    [Route("/Add")]
+    [Route("/Add-Passenger")]
     public async Task<IActionResult> AddPassenger(Passenger passenger)
     {
         await service.AddPassenger(passenger);
@@ -37,7 +37,7 @@ public class PassengerController(IPassengerService service) : ControllerBase
     }
     
     [HttpPut]
-    [Route("/Update")]
+    [Route("/Update-Passneger")]
     public async Task<IActionResult> UpdatePassenger(Passenger passenger)
     {
         await service.UpdatePassenger(passenger);
@@ -45,7 +45,7 @@ public class PassengerController(IPassengerService service) : ControllerBase
     }
     
     /*[HttpDelete]
-    [Route("/Delete")]
+    [Route("/Delete-Passneger")]
     public async Task<IActionResult> DeletePassenger(string passengerId)
     {
         await service.DeletePassenger(passengerId);

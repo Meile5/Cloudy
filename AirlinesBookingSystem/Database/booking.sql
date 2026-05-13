@@ -9,7 +9,7 @@ USE [booking-db];
 GO
 
 CREATE TABLE passengers (
-                            id varchar(32) PRIMARY KEY,
+                            id varchar(36) PRIMARY KEY,
 
                             first_name VARCHAR(100) NOT NULL,
                             last_name VARCHAR(100) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE passengers (
 
 
 CREATE TABLE flights (
-                         id varchar(32) PRIMARY KEY,
+                         id varchar(36) PRIMARY KEY,
 
                          flight_number VARCHAR(20) NOT NULL,
 
@@ -56,9 +56,9 @@ CREATE TABLE flights (
 -- =========================================
 
 CREATE TABLE seats (
-                       id varchar(32) PRIMARY KEY,
+                       id varchar(36) PRIMARY KEY,
 
-                       flight_id varchar(32) NOT NULL REFERENCES flights(id),
+                       flight_id varchar(36) NOT NULL REFERENCES flights(id),
 
                        seat_number VARCHAR(10) NOT NULL,
 
@@ -78,14 +78,14 @@ CREATE TABLE seats (
 
 
 CREATE TABLE bookings (
-                          id varchar(32) PRIMARY KEY,
+                          id varchar(36) PRIMARY KEY,
 
                           booking_reference VARCHAR(20) NOT NULL UNIQUE,
 
-                          passenger_id BIGINT NOT NULL
+                          passenger_id varchar(36) NOT NULL
                               REFERENCES passengers(id),
 
-                          flight_id BIGINT NOT NULL
+                          flight_id varchar(36) NOT NULL
                               REFERENCES flights(id),
 
 );

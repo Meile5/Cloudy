@@ -1,4 +1,5 @@
-﻿using AirlinesBookingSystem.Models;
+﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.Models;
 
 namespace AirlinesBookingSystem.Interfaces.Services;
 
@@ -8,7 +9,7 @@ public interface ISeatService
     
     public Task<Seat> GetSeatById(string seatId);
 
-    public  Task AddSeat(Seat passenger);
+    public  Task AddSeat(CreateSeatDto passenger);
 
     public  Task UpdateSeat(Seat passenger);
 
