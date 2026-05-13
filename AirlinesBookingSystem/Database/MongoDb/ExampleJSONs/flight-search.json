@@ -1,0 +1,43 @@
+//ignore this, this is just a test thing, it might not make sense 
+{
+  "originAiport" : "CPH",
+  "destinationAiport" : "BKK",
+  "day" : "2026-05-13",
+  //since using the object from the other document would have nested embedding 
+  //and includes unnecessary information (origin & destination airport), 
+  //this would prob have to be a new flight object? 
+  //but that might not make sense to do, having 2 models for the same thing
+  "flights" : [
+    {
+      "id" : "b2e51516-3850-40c5-a7d2-0002b0e71187",
+      "flightNumher" : "349-b",
+      "departureTime" : "2026-05-13T15:37:05.711Z",
+      "arrivalTime" : "2026-05-14T17:40:00.711Z",
+      "currency" : "DKK"
+    },
+    {
+      "id" : "98ae4587-9491-84c4-b5c5-0116cea61409",
+      "flightNumher" : "349-a",
+      "departureTime" : "2026-05-13T17:30:00.711Z",
+      "arrivalTime" : "2026-05-14T19:40:00.711Z",
+      "currency" : "DKK"
+    }
+  ]
+}
+
+// or we can reference instead???
+{
+  "originAiport" : "CPH",
+  "destinationAiport" : "BKK",
+  "day" : "2026-05-13",
+  "flights" : [
+    {
+      "id" : "b2e51516-3850-40c5-a7d2-0002b0e71187"
+    },
+    {
+      "id" : "98ae4587-9491-84c4-b5c5-0116cea61409"
+    }
+  ]
+}
+
+//i guess we would call the object referencing the flights a "schedule"?

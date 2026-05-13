@@ -16,6 +16,11 @@
       - "1433:1433"
     volumes:
       - booking-db:/var/opt/mssql    
+      
+  mongo-db:
+    image : mongodb/mongodb-community-server:7.0.5-ubuntu2204
+    ports:
+      - "27017:27017"
         
 volumes:
   booking-db:
