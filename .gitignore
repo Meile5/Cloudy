@@ -1,0 +1,11 @@
+bin/
+obj/
+
+AirlinesBookingSystem/bin
+AirlinesBookingSystem/obj
+
+.idea
+
+.git
+
+
