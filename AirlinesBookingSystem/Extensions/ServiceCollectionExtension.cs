@@ -1,3 +1,4 @@
+using AirlinesBookingSystem.BackgroundServices;
 using AirlinesBookingSystem.Configuration;
 using AirlinesBookingSystem.Factories;
 using AirlinesBookingSystem.Interfaces;
@@ -6,10 +7,13 @@ namespace AirlinesBookingSystem.Extensions;
 
 public static class ServiceExtension
 {
-    public static IServiceCollection AddRabbitMqMessageClient(this IServiceCollection services, ClientOptions options)
+    public static IServiceCollection AddSubscription<TEvent>(this IServiceCollection services, string subscriptionId)
     {
-        IAirlineClient messageClient = RabbitMqFactory.CreateMessageClient(options);
-        services.AddSingleton(messageClient);
+        services.AddHostedService(provider =>
+        {
+            var client = provider.GetRequiredService<IAirlineClient>();
+            return new BackgroundSubscriptionService<TEvent>(provider, client, subscriptionId);
+        });
         return services;
     }
 }

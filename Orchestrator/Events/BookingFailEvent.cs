@@ -1,0 +1,8 @@
+namespace AirlinesBookingSystem.Events;
+
+public class BookingFailEvent
+{
+    public Guid SagaId { get; set; }
+    public string Message { get; set; }
+    
+}

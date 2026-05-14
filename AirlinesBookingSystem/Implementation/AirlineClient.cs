@@ -1,3 +1,4 @@
+using AirlinesBookingSystem.Handlers;
 using AirlinesBookingSystem.Interfaces;
 
 namespace AirlinesBookingSystem.Implementation;
@@ -5,7 +6,7 @@ namespace AirlinesBookingSystem.Implementation;
 
 public class AirlineClient(IEventsAdapter adapter) : IAirlineClient
 {
-    public async Task Subscribe<T>(string subscriptionId, EventHandler<T>? handler = null, CancellationToken token = default)
+    public async Task Subscribe<T>(string subscriptionId, AirlineHandler<T>? handler = null, CancellationToken token = default)
     {
         await adapter.Subscribe(subscriptionId, handler, token);
     }

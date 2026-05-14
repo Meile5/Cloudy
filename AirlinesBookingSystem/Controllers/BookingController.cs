@@ -1,4 +1,7 @@
-﻿using AirlinesBookingSystem.Interfaces.Services;
+﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.Events;
+using AirlinesBookingSystem.Interfaces;
+using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +10,7 @@ namespace AirlinesBookingSystem.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class BookingController(IBookingService service) : ControllerBase
+public class BookingController(IBookingService service, IAirlineClient client) : ControllerBase
 {
     
     [HttpGet]
@@ -32,9 +35,17 @@ public class BookingController(IBookingService service) : ControllerBase
     
     [HttpPost]
     [Route("/Add-Booking")]
-    public async Task<IActionResult> AddBooking(Booking booking)
+    public async Task<IActionResult> AddBooking(CreateBookingDto booking) // booking dt includes price of the flight 
     {
-        await service.AddBooking(booking);
+        //await service.AddBooking(booking);
+        var bookingEvent = new BookingStartedEvent
+        {
+            BookingReference = booking.BookingReference,
+            PassengerId = booking.PassengerId,
+            FlightId = booking.FlightId,
+            Price = booking.Price,
+        };
+        client.Publish(bookingEvent);
         return Ok();
     }
     

@@ -1,4 +1,5 @@
-﻿using AirlinesBookingSystem.Interfaces.Repositories;
+﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.Interfaces.Repositories;
 using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
 
@@ -26,9 +27,10 @@ public class BookingService(IBookingRepository repo) : IBookingService
         
     }
     
-    public async Task AddBooking(Booking booking)
+    public async Task AddBooking(CreateBookingDto booking)
     {
-        await repo.AddBooking(booking);
+        var newBooking = CreateBookingDto.ToBooking(booking);
+        await repo.AddBooking(newBooking);
     }
     
     public async Task UpdateBooking(Booking booking)

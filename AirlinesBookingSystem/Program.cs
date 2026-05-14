@@ -1,4 +1,8 @@
+using System.Reflection;
 using AirlinesBookingSystem.Database;
+using AirlinesBookingSystem.Events;
+using AirlinesBookingSystem.Extensions;
+using AirlinesBookingSystem.Handlers;
 using AirlinesBookingSystem.Interfaces.Repositories;
 using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Repositories;
@@ -39,6 +43,30 @@ builder.Services.AddScoped<IPassengerService, PassengerService>();
 builder.Services.AddScoped<ISeatService, SeatService>();
 
 
+// Auto-register handlers via reflection
+// ------------------------------------------------------------
+var handlerType = typeof(IEventHandler<>);
+
+var handlers = Assembly.GetExecutingAssembly()
+    .GetTypes()
+    .Where(t => !t.IsAbstract &&
+                !t.IsInterface &&
+                t.GetInterfaces().Any(i =>
+                    i.IsGenericType &&
+                    i.GetGenericTypeDefinition() == handlerType))
+    .ToList();
+
+foreach (var handler in handlers)
+{
+    var interfaceType = handler.GetInterfaces()
+        .First(i => i.IsGenericType &&
+                    i.GetGenericTypeDefinition() == handlerType);
+
+    builder.Services.AddScoped(interfaceType, handler);
+}
+var options = builder.Services.MessageClientOptions(builder.Configuration);
+builder.Services.AddRabbitMqMessageClient(options);
+builder.Services.AddSubscription<PaymentSuccessStartBookingEvent>("new-subscriber");
 var host = builder.Build();
 
 host.MapControllers();

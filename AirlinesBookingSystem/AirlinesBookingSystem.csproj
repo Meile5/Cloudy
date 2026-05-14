@@ -25,7 +25,6 @@
 
     <ItemGroup>
       <Folder Include="Caching\" />
-      <Folder Include="Events\" />
       <Folder Include="Models\" />
       <Folder Include="Mongo\" />
     </ItemGroup>
@@ -34,5 +33,9 @@
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Orchestrator\Orchestrator.csproj" />
     </ItemGroup>
 </Project>
