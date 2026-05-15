@@ -43,7 +43,7 @@ public class BookingController(IBookingService service, IAirlineClient client) :
             BookingReference = booking.BookingReference,
             PassengerId = booking.PassengerId,
             FlightId = booking.FlightId,
-            Price = booking.Price,
+            Amount = booking.Price,
         };
         client.Publish(bookingEvent);
         return Ok();

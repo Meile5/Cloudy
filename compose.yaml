@@ -15,8 +15,18 @@
     ports:
       - "1433:1433"
     volumes:
-      - booking-db:/var/opt/mssql    
-      
+      - booking-db:/var/opt/mssql   
+  
+  saga-db:
+    image: mcr.microsoft.com/mssql/server:latest
+    environment:
+      MSSQL_SA_PASSWORD: "SuperSecret7!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1434:1433"
+    volumes:
+      - saga-db:/var/opt/mssql
+  
   mongo-db:
     image : mongodb/mongodb-community-server:7.0.5-ubuntu2204
     ports:
@@ -24,4 +34,6 @@
         
 volumes:
   booking-db:
+  saga-db:
+  mongo-db:    
 

@@ -35,8 +35,8 @@ public class CreateSeatDto
             FareClass = dto.FareClass.IsNullOrEmpty() ? "" : dto.FareClass,
             Status = dto.Status,
             Price = dto.Price,
-            CreatedAt = dto.CreatedAt == null ? DateTime.Now : dto.CreatedAt,
-            UpdatedAt = dto.UpdatedAt == null ? DateTime.Now : dto.UpdatedAt
+            CreatedAt = dto.CreatedAt ?? DateTime.Now,
+            UpdatedAt = dto.UpdatedAt ?? DateTime.Now
         };
     }
     
