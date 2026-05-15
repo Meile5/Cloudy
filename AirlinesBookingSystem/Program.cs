@@ -17,18 +17,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+
+//db context 
 var connectionString = builder.Configuration["ConnectionString"];
 
 builder.Services.AddDbContext<BookingContext>(options =>
     options.UseSqlServer(connectionString));
 
+
+//swagger setup (part 1)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 });
-
-
 
 
 //dependency injection
@@ -64,13 +66,20 @@ foreach (var handler in handlers)
 
     builder.Services.AddScoped(interfaceType, handler);
 }
+
+//rabbitmq setup & subscribing 
 var options = builder.Services.MessageClientOptions(builder.Configuration);
 builder.Services.AddRabbitMqMessageClient(options);
 builder.Services.AddSubscription<PaymentSuccessStartBookingEvent>("new-subscriber");
+
+
+
 var host = builder.Build();
 
 host.MapControllers();
 
+
+//swagger setup (part 2)
 if (host.Environment.IsDevelopment())
 {
     //host.MapOpenApi();
