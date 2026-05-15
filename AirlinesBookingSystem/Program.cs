@@ -10,6 +10,7 @@ using AirlinesBookingSystem.Services;
 using AirlinesFlightsystem.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using MongoDB.Driver;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -44,6 +45,15 @@ builder.Services.AddScoped<IFlightService, FlightService>();
 builder.Services.AddScoped<IPassengerService, PassengerService>();
 builder.Services.AddScoped<ISeatService, SeatService>();
 
+
+//mongo db setup
+
+builder.Services.AddSingleton<IMongoClient>(
+    new MongoClient(builder.Configuration["MongoDB:ConnectionString"]));
+
+builder.Services.AddScoped<IMongoDatabase>(sp =>
+    sp.GetRequiredService<IMongoClient>()
+        .GetDatabase(builder.Configuration["MongoDB:Database"]));
 
 // Auto-register handlers via reflection
 // ------------------------------------------------------------
