@@ -29,7 +29,7 @@ public class AirlinesSagaOrchestrator :
     
 
    
-    public Task HandleAsync(BookingFailEvent message, CancellationToken ct)
+    public async Task HandleAsync(BookingFailEvent message, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
@@ -58,17 +58,17 @@ public class AirlinesSagaOrchestrator :
         });
     }
 
-    public Task HandleAsync(BookingSuccessEvent message, CancellationToken ct)
+    public async Task HandleAsync(BookingSuccessEvent message, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
 
-    public Task HandleAsync(StartPaymentEvent message, CancellationToken ct)
+    public async Task HandleAsync(StartPaymentEvent message, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
 
-    public Task HandleAsync(PayentFailEvent message, CancellationToken ct)
+    public async Task HandleAsync(PayentFailEvent message, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
