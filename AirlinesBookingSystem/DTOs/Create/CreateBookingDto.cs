@@ -19,6 +19,7 @@ public class CreateBookingDto
         return new Booking
         {
             Id = Guid.NewGuid().ToString(),
+            BookingReference = dto.BookingReference,
             FlightId = dto.FlightId,
             SeatId = dto.SeatId,
             PassengerId = dto.PassengerId,
@@ -30,6 +31,7 @@ public class CreateBookingDto
         return new CreateBookingDto
         {
             FlightId = booking.FlightId,
+            BookingReference = booking.BookingReference,
             SeatId = booking.SeatId,
             PassengerId = booking.PassengerId,
         };

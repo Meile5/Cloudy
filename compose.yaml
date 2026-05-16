@@ -7,6 +7,24 @@
     #ports:
       #- 5432:5432
   
+  booking-service:
+    build:
+      context: .
+      dockerfile: AirlinesBookingSystem/Dockerfile
+    env_file:
+      - .env
+    environment:
+      - ConnectionString=${BOOKING_DB_CONNECTION}
+      - Redis__ConnectionString=${REDIS_CONNECTION}
+      - MongoDB__ConnectionString=${MONGO_CONNECTION}
+      - MessageClientOptions__ConnectionString=${RABBITMQ_CONNECTION}
+
+    depends_on:
+      - booking-db
+      - redis
+      - mongo-db
+    ports:
+      - "8080:8080"
   
   rabbitmq:
     image: rabbitmq:3-management
@@ -14,6 +32,13 @@
     ports:
       - "5672:5672"
       - "15672:15672"
+  
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+        
   
   booking-db:
     image: mcr.microsoft.com/mssql/server:latest

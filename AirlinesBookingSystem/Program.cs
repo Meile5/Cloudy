@@ -90,7 +90,7 @@ foreach (var handler in handlers)
 //redis setup
 builder.Services.AddSingleton<IConnectionMultiplexer>(
     ConnectionMultiplexer.Connect(
-        builder.Configuration["Redis:ConnectionString"]
+        builder.Configuration["Redis:ConnectionString"] ?? "localhost:6379"
     )
 );
 builder.Services.AddScoped<ISeatLockService, SeatLockService>();
@@ -108,14 +108,11 @@ host.MapControllers();
 
 
 //swagger setup (part 2)
-if (host.Environment.IsDevelopment())
-{
-    //host.MapOpenApi();
+/*if (host.Environment.IsDevelopment())
+{*/
     host.UseSwagger();
-    //host.UseSwaggerUi(options => { options.DocumentPath = "/openapi/v1.json"; });
-    //host.UseSwaggerUi(options => { options.DocumentPath = "/swagger/v1/swagger.json"; });
     host.UseSwaggerUI();
-}
+//}
 
 
 
