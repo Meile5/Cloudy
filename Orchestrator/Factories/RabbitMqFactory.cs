@@ -1,5 +1,6 @@
 using AirlinesBookingSystem.Adapters;
 using AirlinesBookingSystem.Configuration;
+using AirlinesBookingSystem.Implementation;
 using AirlinesBookingSystem.Interfaces;
 using EasyNetQ;
 
@@ -16,6 +17,6 @@ public static class RabbitMqFactory
     public static IAirlineClient CreateMessageClient(ClientOptions options)
     {
         AirlinesAdapter adapter = CreateAdapter(options);
-        return new Implementation.AirlineClient(adapter);
+        return new AirlineClient(adapter);
     }
 }

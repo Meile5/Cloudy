@@ -1,24 +1,40 @@
+using AirlinesBookingSystem.Interfaces.Repositories;
 using Orchestrator.Models;
 
-namespace AirlinesBookingSystem.Interfaces.Repositories;
+namespace Orchestrator.Database.Repositories;
 
 
-public class SagaRepository(MessageContext _context) : ISagaRepository
+public class SagaRepository(SagaContext _context) : ISagaRepository
 {
-    public async Task<SagaState> GetById(Guid sagaId)
+    public async Task<Saga> GetById(Guid sagaId)
     {
-        var saga = await _context.MessageSagaStates.FindAsync(sagaId);
-        return saga;
+        var saga = await _context.Sagas.FindAsync(sagaId);
+        return saga!;
     }
 
-    public async Task Save(MessageSagaState state)
+    public async Task Save(Saga state)
     {
-        _context.MessageSagaStates.Add(state);
+        _context.Sagas.Add(state);
+        await _context.SaveChangesAsync();
+    }
+    
+    public async Task Update(Saga state)
+    {
+        if (state.IsCompleted)
+        {
+            state.IsCompleted = true;
+            //if we're saying it's completed, then we assume the steps are completetd
+            state.PaymentProcessed = true;
+            state.BookingProcessed = true;
+            state.CompletedAt = DateTime.Now;
+        }
+        
+        _context.Sagas.Update(state);
         await _context.SaveChangesAsync();
     }
 
     //pass saga object instead
-    public async Task Update(string sagaId, bool isFailed, bool? IsCompleted)
+    /*public async Task Update(string sagaId, bool isFailed, bool? IsCompleted)
     {
         var saga = _context.MessageSagaStates.Where(s => s.SagaId.ToString() == sagaId)
             .FirstOrDefault();
@@ -33,6 +49,6 @@ public class SagaRepository(MessageContext _context) : ISagaRepository
         }
         _context.MessageSagaStates.Update(saga);
         await _context.SaveChangesAsync();
-    }
+    }*/
     
 }

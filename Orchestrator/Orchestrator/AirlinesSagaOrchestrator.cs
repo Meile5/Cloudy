@@ -1,7 +1,7 @@
 using AirlinesBookingSystem.Events;
 using AirlinesBookingSystem.Handlers;
 using AirlinesBookingSystem.Interfaces;
-using AirlinesBookingSystem.Interfaces.Repositories;
+using Orchestrator.Interfaces.Services;
 using Orchestrator.Models;
 
 namespace Orchestrator.Orchestrator;
@@ -16,19 +16,20 @@ public class AirlinesSagaOrchestrator :
     
 {
     private readonly IAirlineClient _airlineClient;
-    private readonly SagaRepository _sagaRepo;
+    private readonly ISagaService _service;
 
     public AirlinesSagaOrchestrator(
         IAirlineClient messageClient,
-        SagaRepository sagaRepo)
+        ISagaService service
+        )
     {
         _airlineClient = messageClient;
-        _sagaRepo = sagaRepo;
+        _service = service;
     }
     
 
    
-    public Task HandleAsync(BookingFailEvent message, CancellationToken ct)
+    public async Task HandleAsync(BookingFailEvent message, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
@@ -44,7 +45,7 @@ public class AirlinesSagaOrchestrator :
             IsCompleted = false,
             IsFailed = false,
         };
-        await _sagaRepo.Save(state);
+        await _service.Save(state);
         
         await _airlineClient.Publish(new StartPaymentEvent()
         {
@@ -57,17 +58,17 @@ public class AirlinesSagaOrchestrator :
         });
     }
 
-    public Task HandleAsync(BookingSuccessEvent message, CancellationToken ct)
+    public async Task HandleAsync(BookingSuccessEvent message, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
 
-    public Task HandleAsync(StartPaymentEvent message, CancellationToken ct)
+    public async Task HandleAsync(StartPaymentEvent message, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
 
-    public Task HandleAsync(PayentFailEvent message, CancellationToken ct)
+    public async Task HandleAsync(PayentFailEvent message, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
@@ -88,7 +89,7 @@ public class AirlinesSagaOrchestrator :
             IsFailed = false,
             PaymentId = message.PaymentId
         };
-        //TO DO 
-        await _sagaRepo.Update(updatedState);
+        
+        await _service.Update(updatedState);
     }
 }

@@ -1,10 +1,26 @@
 using System.Reflection;
 using AirlinesBookingSystem.Extensions;
 using AirlinesBookingSystem.Handlers;
+using AirlinesBookingSystem.Interfaces.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Orchestrator;
+using Orchestrator.Database;
+using Orchestrator.Database.Repositories;
+using Orchestrator.Interfaces.Services;
+using Orchestrator.Services;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();
+
+
+var connectionString = builder.Configuration["ConnectionString"];
+
+builder.Services.AddDbContext<SagaContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<ISagaRepository, SagaRepository>();
+builder.Services.AddScoped<ISagaService, SagaService>();
+
 
 // Auto-register handlers via reflection
 // ------------------------------------------------------------

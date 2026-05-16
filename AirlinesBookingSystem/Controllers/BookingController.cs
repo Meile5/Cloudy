@@ -37,11 +37,23 @@ public class BookingController(IBookingService service, IAirlineClient client) :
     [Route("/Add-Booking")]
     public async Task<IActionResult> AddBooking(CreateBookingDto booking)
     {
+<<<<<<< HEAD
         var (success, message) = await service.InitiateBookingAsync(booking);
 
         if (!success)
             return Conflict(message);
 
+=======
+        //await service.AddBooking(booking);
+        var bookingEvent = new BookingStartedEvent
+        {
+            BookingReference = booking.BookingReference,
+            PassengerId = booking.PassengerId,
+            FlightId = booking.FlightId,
+            Amount = booking.Price,
+        };
+        client.Publish(bookingEvent);
+>>>>>>> 38d344ed26229e379321a1ee63f0c0415fc9cb6e
         return Ok();
     }
     
