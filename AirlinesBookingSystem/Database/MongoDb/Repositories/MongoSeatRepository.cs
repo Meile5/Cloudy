@@ -13,10 +13,10 @@ public class MongoSeatRepository : IMongoSeatRepository
         _seats = db.GetCollection<MongoSeats>("seats");
     }
     
-    public async Task<MongoSeats> CreateSeat(MongoSeats blog)
+    public async Task<MongoSeats> CreateSeat(MongoSeats seat)
     {
-        await _seats.InsertOneAsync(blog);
-        return blog;
+        await _seats.InsertOneAsync(seat);
+        return seat;
     }
 
     public async Task<MongoSeats> GetSeatById(string id)
@@ -29,9 +29,9 @@ public class MongoSeatRepository : IMongoSeatRepository
         return await _seats.Find(_ => true).ToListAsync();
     }
     
-    public async Task UpdateSeat(MongoSeats blog)
+    public async Task UpdateSeat(MongoSeats seat)
     {
-        await _seats.ReplaceOneAsync(s => s.Id == blog.Id, blog);
+        await _seats.ReplaceOneAsync(s => s.Id == seat.Id, seat);
     }
     
     public async Task DeleteSeat(string id)

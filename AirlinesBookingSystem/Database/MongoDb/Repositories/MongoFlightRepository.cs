@@ -24,7 +24,7 @@ public class MongoFlightRepository : IMongoFlightRepository
         return await _flights.Find(f => f.Id == id).FirstOrDefaultAsync();
     }
 
-    public async Task<List<MongoFlights>> GetAllPosts()
+    public async Task<List<MongoFlights>> GetAllFlights()
     {
         return await _flights.Find(_ => true).ToListAsync();
     }
