@@ -3,6 +3,7 @@ using AirlinesBookingSystem.Database;
 using AirlinesBookingSystem.Events;
 using AirlinesBookingSystem.Extensions;
 using AirlinesBookingSystem.Handlers;
+using AirlinesBookingSystem.Interfaces;
 using AirlinesBookingSystem.Interfaces.Repositories;
 using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Repositories;

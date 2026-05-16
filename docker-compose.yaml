@@ -1,12 +1,16 @@
 ﻿services:
   booking-service:
-    build: .
+    build:
+      context: .
+      dockerfile: AirlinesBookingSystem/Dockerfile 
     env_file:
       - .env
     environment:
       - ConnectionStrings__BookingDb=${BOOKING_DB_CONNECTION}
       - Redis__ConnectionString=${REDIS_CONNECTION}
       - MongoDB__ConnectionString=${MONGO_CONNECTION}
+      - MessageClientOptions__ConnectionString=${RABBITMQ_CONNECTION}
+
     depends_on:
       - booking-db
       - redis
