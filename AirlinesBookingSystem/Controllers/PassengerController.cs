@@ -1,4 +1,5 @@
-﻿using AirlinesBookingSystem.Interfaces.Services;
+﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,7 +31,7 @@ public class PassengerController(IPassengerService service) : ControllerBase
     
     [HttpPost]
     [Route("/Add-Passenger")]
-    public async Task<IActionResult> AddPassenger(Passenger passenger)
+    public async Task<IActionResult> AddPassenger(CreatePassengerDto passenger)
     {
         await service.AddPassenger(passenger);
         return Ok();

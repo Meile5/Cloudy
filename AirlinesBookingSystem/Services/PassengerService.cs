@@ -1,4 +1,5 @@
-﻿using AirlinesBookingSystem.Interfaces.Repositories;
+﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.Interfaces.Repositories;
 using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
 
@@ -26,9 +27,10 @@ public class PassengerService(IPassengerRepository repo) : IPassengerService
         
     }
     
-    public async Task AddPassenger(Passenger passenger)
+    public async Task AddPassenger(CreatePassengerDto passenger)
     {
-        await repo.AddPassenger(passenger);
+        var newPass = CreatePassengerDto.ToPassenger(passenger);
+        await repo.AddPassenger(newPass);
     }
     
     public async Task UpdatePassenger(Passenger passenger)

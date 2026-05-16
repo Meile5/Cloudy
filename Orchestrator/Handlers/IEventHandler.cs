@@ -1,4 +1,4 @@
-namespace AirlinesBookingSystem.Handlers;
+namespace Orchestrator.Handlers;
 
 public interface IEventHandler <TMessage>
 {

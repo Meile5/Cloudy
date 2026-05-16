@@ -1,4 +1,5 @@
-﻿using AirlinesBookingSystem.Interfaces.Services;
+﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,7 +32,7 @@ public class FlightController (IFlightService service ) : ControllerBase
     
     [HttpPost]
     [Route("/Add-Flight")]
-    public async Task<IActionResult> AddFlight(Flight flight)
+    public async Task<IActionResult> AddFlight(CreateFlightDto flight)
     {
         await service.AddFlight(flight);
         return Ok();

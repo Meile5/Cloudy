@@ -5,7 +5,7 @@ using MongoDB.Driver;
 
 namespace AirlinesBookingSystem.Database.MongoDb.Services;
 
-public class MongoFlightService(IMongoFlightRepository repo)
+public class MongoFlightService(IMongoFlightRepository repo) : IMongoFlightService
 {
     public async Task<MongoFlights> CreateFlight(MongoFlights flight)
     {

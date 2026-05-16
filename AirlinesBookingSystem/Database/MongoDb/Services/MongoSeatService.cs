@@ -4,7 +4,7 @@ using AirlinesBookingSystem.Interfaces.Repositories;
 
 namespace AirlinesBookingSystem.Database.MongoDb.Services;
 
-public class MongoSeatService (IMongoSeatRepository repo)
+public class MongoSeatService (IMongoSeatRepository repo) : IMongoSeatService
 {
     public async Task<MongoSeats> CreateSeat(MongoSeats seat)
     {

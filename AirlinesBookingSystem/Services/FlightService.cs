@@ -1,4 +1,5 @@
-﻿using AirlinesBookingSystem.Interfaces.Repositories;
+﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.Interfaces.Repositories;
 using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
 
@@ -26,9 +27,10 @@ public class FlightService(IFlightRepository repo) : IFlightService
         
     }
     
-    public async Task AddFlight(Flight flight)
+    public async Task AddFlight(CreateFlightDto flight)
     {
-        await repo.AddFlight(flight);
+        var newFlight = CreateFlightDto.ToFlight(flight);
+        await repo.AddFlight(newFlight);
     }
     
     public async Task UpdateFlight(Flight flight)

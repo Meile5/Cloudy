@@ -5,7 +5,6 @@ namespace AirlinesBookingSystem.DTOs.Create;
 
 public class CreatePassengerDto
 {
-    public string Id { get; set; } = null!;
 
     public string FirstName { get; set; } = null!;
 
@@ -25,11 +24,11 @@ public class CreatePassengerDto
 
     public DateTime? UpdatedAt { get; set; }
     
-    public static Passenger ToSeat(CreatePassengerDto dto)
+    public static Passenger ToPassenger(CreatePassengerDto dto)
     {
         return new Passenger
         {
-            Id = dto.Id,
+            Id = Guid.NewGuid().ToString(),
             FirstName = dto.FirstName,
             LastName = dto.LastName,
             Email = dto.Email,
@@ -46,7 +45,6 @@ public class CreatePassengerDto
     {
         return new CreatePassengerDto
         {
-            Id = pass.Id,
             FirstName = pass.FirstName,
             LastName = pass.LastName,
             Email = pass.Email,

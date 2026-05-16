@@ -1,4 +1,5 @@
-﻿using AirlinesBookingSystem.Models;
+﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.Models;
 
 namespace AirlinesBookingSystem.Interfaces.Services;
 
@@ -8,7 +9,7 @@ public interface IFlightService
 
     public Task<Flight> GetFlightById(string flightId);
 
-    public Task AddFlight(Flight flight);
+    public Task AddFlight(CreateFlightDto flight);
 
     public Task UpdateFlight(Flight flight);
 

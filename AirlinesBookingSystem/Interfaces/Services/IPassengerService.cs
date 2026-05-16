@@ -1,4 +1,5 @@
-﻿using AirlinesBookingSystem.Models;
+﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.Models;
 
 namespace AirlinesBookingSystem.Interfaces.Services;
 
@@ -8,7 +9,7 @@ public interface IPassengerService
     
     public  Task<Passenger> GetPassengerById(string passengerId);
     
-    public  Task AddPassenger(Passenger passenger);
+    public  Task AddPassenger(CreatePassengerDto passenger);
 
     public  Task UpdatePassenger(Passenger passenger);
 
