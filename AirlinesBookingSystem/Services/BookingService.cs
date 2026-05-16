@@ -1,11 +1,13 @@
 ﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.Events;
+using AirlinesBookingSystem.Interfaces;
 using AirlinesBookingSystem.Interfaces.Repositories;
 using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
 
 namespace AirlinesBookingSystem.Services;
 
-public class BookingService(IBookingRepository repo) : IBookingService
+public class BookingService(IBookingRepository repo, IAirlineClient client, ISeatLockService seatLockService ) : IBookingService
 {
     public async Task<List<Booking>> GetAllBookings()
     {
@@ -42,5 +44,31 @@ public class BookingService(IBookingRepository repo) : IBookingService
     public async Task DeleteBooking(string bookingId)
     {
         await repo.DeleteBooking(bookingId);
+    }
+    
+    
+    public async Task<(bool Success, string? Message)> InitiateBookingAsync(CreateBookingDto booking)
+    {
+        var sagaId = Guid.NewGuid();
+
+        var locked = await seatLockService.TryLockSeatAsync(
+            booking.FlightId,
+            booking.SeatId,
+            sagaId.ToString()
+        );
+
+        if (!locked)
+            return (false, "Seat is currently held by another passenger.");
+
+        await client.Publish(new BookingStartedEvent
+        {
+            SagaId = sagaId,
+            PassengerId = booking.PassengerId,
+            FlightId = booking.FlightId,
+            SeatId = booking.SeatId,
+            Amount = booking.Price,
+        });
+
+        return (true, null);
     }
 }

@@ -10,6 +10,7 @@ using AirlinesBookingSystem.Services;
 using AirlinesFlightsystem.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using StackExchange.Redis;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -64,6 +65,12 @@ foreach (var handler in handlers)
 
     builder.Services.AddScoped(interfaceType, handler);
 }
+builder.Services.AddSingleton<IConnectionMultiplexer>(
+    ConnectionMultiplexer.Connect(
+        builder.Configuration["Redis:ConnectionString"]
+    )
+);
+builder.Services.AddScoped<ISeatLockService, SeatLockService>();
 var options = builder.Services.MessageClientOptions(builder.Configuration);
 builder.Services.AddRabbitMqMessageClient(options);
 builder.Services.AddSubscription<PaymentSuccessStartBookingEvent>("new-subscriber");
