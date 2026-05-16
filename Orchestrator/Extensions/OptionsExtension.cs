@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Orchestrator.Configuration;
 
-namespace AirlinesBookingSystem.Extensions;
-
+namespace Orchestrator.Extensions; 
 
 public static class OptionsExtension
 {

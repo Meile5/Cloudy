@@ -45,10 +45,9 @@ public class AirlinesSagaOrchestrator :
     //starting flow
     public async Task HandleAsync(BookingStartedEvent booking, CancellationToken ct)
     {
-        var sagaId = Guid.NewGuid();
         var state = new SagaState
         {
-            SagaId = sagaId,
+            SagaId = booking.SagaId,
             BookingProcessed = false,
             PaymentProcessed = false,
             IsCompleted = false,
@@ -58,7 +57,7 @@ public class AirlinesSagaOrchestrator :
         
         await _airlineClient.Publish(new StartPaymentEvent()
         {
-            SagaId = sagaId,
+            SagaId = booking.SagaId,
             BookingReference = booking.BookingReference,
             PassengerId = booking.PassengerId,
             FlightId = booking.FlightId,

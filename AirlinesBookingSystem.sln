@@ -3,9 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirlinesBookingSystem", "AirlinesBookingSystem\AirlinesBookingSystem.csproj", "{7839933A-C678-4F64-A1EB-799675992A44}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{243785CD-6A41-42CD-A747-69F8F0F3571C}"
-	ProjectSection(SolutionItems) = preProject
-		compose.yaml = compose.yaml
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestrator", "Orchestrator\Orchestrator.csproj", "{76360B29-27ED-40AD-AE9E-B762EAFDBDD1}"
 EndProject

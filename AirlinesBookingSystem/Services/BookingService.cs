@@ -7,7 +7,7 @@ using AirlinesBookingSystem.Models;
 
 namespace AirlinesBookingSystem.Services;
 
-public class BookingService(IBookingRepository repo, ISeatRepository seatRepo, IAirlineClient client) : IBookingService
+public class BookingService(IBookingRepository repo, IAirlineClient client, ISeatLockService seatLockService, ISeatRepository seatRepo ) : IBookingService
 {
     public async Task<List<Booking>> GetAllBookings()
     {
@@ -76,5 +76,31 @@ public class BookingService(IBookingRepository repo, ISeatRepository seatRepo, I
     public async Task DeleteBooking(string bookingId)
     {
         await repo.DeleteBooking(bookingId);
+    }
+    
+    
+    public async Task<(bool Success, string? Message)> InitiateBookingAsync(CreateBookingDto booking)
+    {
+        var sagaId = Guid.NewGuid();
+
+        var locked = await seatLockService.TryLockSeatAsync(
+            booking.FlightId,
+            booking.SeatId,
+            sagaId.ToString()
+        );
+
+        if (!locked)
+            return (false, "Seat is currently held by another passenger.");
+
+        await client.Publish(new BookingStartedEvent
+        {
+            SagaId = sagaId,
+            PassengerId = booking.PassengerId,
+            FlightId = booking.FlightId,
+            SeatId = booking.SeatId,
+            Amount = booking.Price,
+        });
+
+        return (true, null);
     }
 }

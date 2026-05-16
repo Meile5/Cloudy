@@ -14,4 +14,7 @@ public interface IBookingService
     public Task UpdateBooking(Booking booking);
 
     public Task DeleteBooking(string bookingId);
+    
+    Task<(bool Success, string? Message)> InitiateBookingAsync(CreateBookingDto booking);
+
 }
