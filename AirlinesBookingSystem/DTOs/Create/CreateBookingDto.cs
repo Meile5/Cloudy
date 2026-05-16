@@ -4,11 +4,11 @@ namespace AirlinesBookingSystem.DTOs.Create;
 
 public class CreateBookingDto
 {
+    public string BookingReference { get; set; } = null!;
+    
     public string PassengerId { get; set; } = null!;
 
     public string FlightId { get; set; } = null!;
-    
-    public string SeatId { get; set; } = null!;
 
     public decimal Price { get; set; }
     

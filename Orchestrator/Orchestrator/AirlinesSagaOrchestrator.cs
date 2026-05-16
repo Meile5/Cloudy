@@ -1,4 +1,3 @@
-using AirlinesBookingSystem.Events;
 using AirlinesBookingSystem.Interfaces;
 using Orchestrator.Handlers;
 using Orchestrator.Interfaces;

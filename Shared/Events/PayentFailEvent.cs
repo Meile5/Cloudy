@@ -1,6 +1,4 @@
-using System.Runtime.InteropServices.JavaScript;
-
-namespace AirlinesBookingSystem.Events;
+namespace Shared.Events;
 
 public class PayentFailEvent
 {

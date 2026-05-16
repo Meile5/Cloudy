@@ -1,9 +1,9 @@
 ﻿using AirlinesBookingSystem.DTOs.Create;
-using AirlinesBookingSystem.Events;
 using AirlinesBookingSystem.Interfaces;
 using AirlinesBookingSystem.Interfaces.Repositories;
 using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
+using Shared.Events;
 
 namespace AirlinesBookingSystem.Services;
 

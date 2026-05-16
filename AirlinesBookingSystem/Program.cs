@@ -3,7 +3,6 @@ using AirlinesBookingSystem.Database;
 using AirlinesBookingSystem.Database.MongoDb.Interfaces;
 using AirlinesBookingSystem.Database.MongoDb.Repositories;
 using AirlinesBookingSystem.Database.MongoDb.Services;
-using AirlinesBookingSystem.Events;
 using AirlinesBookingSystem.Extensions;
 using AirlinesBookingSystem.Handlers;
 using AirlinesBookingSystem.Interfaces;

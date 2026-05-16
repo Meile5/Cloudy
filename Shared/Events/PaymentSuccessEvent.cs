@@ -1,4 +1,4 @@
-namespace AirlinesBookingSystem.Events;
+namespace Shared.Events;
 
 public class PaymentSuccessEvent
 {

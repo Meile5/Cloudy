@@ -44,4 +44,5 @@ volumes:
   booking-db:
   saga-db:
   mongo-db:    
+  rabbit-mq:
 

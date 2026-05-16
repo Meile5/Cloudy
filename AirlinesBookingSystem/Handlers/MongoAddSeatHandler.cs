@@ -1,6 +1,6 @@
 using AirlinesBookingSystem.Database.MongoDb.Interfaces;
 using AirlinesBookingSystem.Database.MongoDb.Models;
-using AirlinesBookingSystem.Events;
+using Shared.Events;
 
 namespace AirlinesBookingSystem.Handlers;
 

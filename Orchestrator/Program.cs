@@ -1,6 +1,4 @@
 using System.Reflection;
-using AirlinesBookingSystem.Events;
-using AirlinesBookingSystem.Extensions;
 using AirlinesBookingSystem.Interfaces.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +9,7 @@ using Orchestrator.Extensions;
 using Orchestrator.Handlers;
 using Orchestrator.Interfaces.Services;
 using Orchestrator.Services;
+using Shared.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddHostedService<Worker>();

@@ -1,6 +1,6 @@
-using AirlinesBookingSystem.Events;
 using Microsoft.AspNetCore.Mvc;
 using Orchestrator.Interfaces;
+using Shared.Events;
 
 namespace Orchestrator.TestControllers;
 

@@ -1,9 +1,9 @@
 ﻿using AirlinesBookingSystem.DTOs.Create;
-using AirlinesBookingSystem.Events;
 using AirlinesBookingSystem.Interfaces;
 using AirlinesBookingSystem.Interfaces.Repositories;
 using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
+using Shared.Events;
 
 namespace AirlinesBookingSystem.Services;
 
@@ -95,6 +95,7 @@ public class BookingService(IBookingRepository repo, IAirlineClient client, ISea
         await client.Publish(new BookingStartedEvent
         {
             SagaId = sagaId,
+            BookingReference = booking.BookingReference,
             PassengerId = booking.PassengerId,
             FlightId = booking.FlightId,
             SeatId = booking.SeatId,

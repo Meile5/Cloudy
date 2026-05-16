@@ -1,5 +1,4 @@
 using AirlinesBookingSystem.DTOs.Create;
-using AirlinesBookingSystem.Events;
 using AirlinesBookingSystem.Interfaces;
 using AirlinesBookingSystem.Interfaces.Services;
 using Shared.Events;
@@ -32,8 +31,7 @@ public class PaymentSuccessHandler(
             {
                 SagaId = message.SagaId,
                 Message = "success",
-            };
-            await client.Publish<BookingSuccessEvent>(bookingSuccessEvent, ct);
+            });
             
         }
         catch (Exception ex)
@@ -44,8 +42,7 @@ public class PaymentSuccessHandler(
                 SagaId = message.SagaId,
                 PaymentId = message.PaymentId,
                 Message = ex.Message,
-            };
-            await client.Publish<BookingFailEvent>(bookingFailEvent);
+            });
         }
     }
 }
