@@ -1,9 +1,10 @@
+using AirlinesBookingSystem.Database.MongoDb.Interfaces;
 using AirlinesBookingSystem.Database.MongoDb.Models;
 using MongoDB.Driver;
 
 namespace AirlinesBookingSystem.Database.MongoDb.Repositories;
 
-public class MongoSeatRepository
+public class MongoSeatRepository : IMongoSeatRepository
 {
     private readonly IMongoCollection<MongoSeats> _seats;
     

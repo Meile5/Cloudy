@@ -1,5 +1,7 @@
 using System.Reflection;
 using AirlinesBookingSystem.Database;
+using AirlinesBookingSystem.Database.MongoDb.Interfaces;
+using AirlinesBookingSystem.Database.MongoDb.Repositories;
 using AirlinesBookingSystem.Events;
 using AirlinesBookingSystem.Extensions;
 using AirlinesBookingSystem.Handlers;
@@ -39,6 +41,9 @@ builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<IFlightRepository, FlightRepository>();
 builder.Services.AddScoped<IPassengerRepository, PassengerRepository>();
 builder.Services.AddScoped<ISeatRepository, SeatRepository>();
+
+builder.Services.AddScoped<IMongoSeatRepository, MongoSeatRepository>();
+builder.Services.AddScoped<IMongoFlightRepository, MongoFlightRepository>();
 
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IFlightService, FlightService>();
