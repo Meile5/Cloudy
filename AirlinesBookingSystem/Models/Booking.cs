@@ -13,7 +13,11 @@ public partial class Booking
 
     public string FlightId { get; set; } = null!;
 
+    public string SeatId { get; set; } = null!;
+
     public virtual Flight Flight { get; set; } = null!;
 
     public virtual Passenger Passenger { get; set; } = null!;
+
+    public virtual Seat Seat { get; set; } = null!;
 }

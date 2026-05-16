@@ -88,6 +88,9 @@ CREATE TABLE bookings (
                           flight_id varchar(36) NOT NULL
                               REFERENCES flights(id),
 
+                          seat_id varchar(36) NOT NULL
+                              REFERENCES seats(id),
+
 );
 
 

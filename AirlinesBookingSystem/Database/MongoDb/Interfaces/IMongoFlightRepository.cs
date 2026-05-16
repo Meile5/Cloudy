@@ -16,6 +16,8 @@ public interface IMongoFlightRepository
 
     public Task AddAvailableSeat(string flightId, MongoSeats seat);
 
+    public Task UpsertAvailableSeat(string flightId, MongoSeats seat);
+
     public Task DeleteAvailableSeat(string flightId, string seatId);
 
     public Task DeletePost(string id);

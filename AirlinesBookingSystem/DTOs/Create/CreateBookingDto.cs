@@ -9,6 +9,8 @@ public class CreateBookingDto
     public string PassengerId { get; set; } = null!;
 
     public string FlightId { get; set; } = null!;
+    
+    public string SeatId { get; set; } = null!;
 
     public decimal Price { get; set; }
     
@@ -19,6 +21,7 @@ public class CreateBookingDto
             Id = Guid.NewGuid().ToString(),
             BookingReference = dto.BookingReference,
             FlightId = dto.FlightId,
+            SeatId = dto.SeatId,
             PassengerId = dto.PassengerId,
         };
     }
@@ -29,6 +32,7 @@ public class CreateBookingDto
         {
             BookingReference = booking.BookingReference,
             FlightId = booking.FlightId,
+            SeatId = booking.SeatId,
             PassengerId = booking.PassengerId,
         };
     }

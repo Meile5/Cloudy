@@ -24,7 +24,7 @@ public class PaymentSuccessHandler (IBookingService service, IAirlineClient clie
                 SagaId = message.SagaId,
                 Message = "success",
             };
-            client.Publish<BookingSuccessEvent>(bookingSuccessEvent);
+            await client.Publish<BookingSuccessEvent>(bookingSuccessEvent, ct);
             
         }
         catch(Exception ex)

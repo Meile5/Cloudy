@@ -23,5 +23,7 @@ public partial class Seat
 
     public DateTime? UpdatedAt { get; set; }
 
+    public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+
     public virtual Flight Flight { get; set; } = null!;
 }

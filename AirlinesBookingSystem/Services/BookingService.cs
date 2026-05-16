@@ -1,11 +1,13 @@
 ﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.Events;
+using AirlinesBookingSystem.Interfaces;
 using AirlinesBookingSystem.Interfaces.Repositories;
 using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
 
 namespace AirlinesBookingSystem.Services;
 
-public class BookingService(IBookingRepository repo) : IBookingService
+public class BookingService(IBookingRepository repo, ISeatRepository seatRepo, IAirlineClient client) : IBookingService
 {
     public async Task<List<Booking>> GetAllBookings()
     {
@@ -29,8 +31,25 @@ public class BookingService(IBookingRepository repo) : IBookingService
     
     public async Task AddBooking(CreateBookingDto booking)
     {
-        var newBooking = CreateBookingDto.ToBooking(booking);
-        await repo.AddBooking(newBooking);
+        var seat = await seatRepo.GetSeatById(booking.SeatId);
+
+        if (seat != null)
+        {
+            var newBooking = CreateBookingDto.ToBooking(booking);
+            await repo.AddBooking(newBooking);
+
+            var command = new MongoAddSeatCommand
+            {
+                flightId = booking.FlightId,
+                seatId = booking.SeatId,
+                SeatNumber = seat.SeatNumber,
+                CabinClass = seat.CabinClass,
+                FareClass = seat.FareClass ?? null,
+                Price = seat.Price
+            };
+            await client.Publish<MongoAddSeatCommand>(command);
+        }
+        
     }
     
     public async Task UpdateBooking(Booking booking)
@@ -38,7 +57,7 @@ public class BookingService(IBookingRepository repo) : IBookingService
         await repo.UpdateBooking(booking);
     }
     
-    //we prob dont want to hard delete a booking, but I'll but this here in case
+    //we prob dont want to hard delete a booking, but I'll put this here in case
     public async Task DeleteBooking(string bookingId)
     {
         await repo.DeleteBooking(bookingId);

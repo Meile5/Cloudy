@@ -17,6 +17,6 @@ public class MongoAddSeatHandler(IMongoFlightRepository repo ) : IEventHandler<M
             SeatNumber = message.SeatNumber,
         };
 
-        await repo.AddAvailableSeat(message.flightId, seat);
+        await repo.UpsertAvailableSeat(message.flightId, seat);
     }
 }

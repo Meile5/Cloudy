@@ -49,6 +49,14 @@ public class MongoFlightRepository : IMongoFlightRepository
             Builders<MongoFlights>.Update.Push(f => f.AvailableSeats, seat));
     }
     
+    public async Task UpsertAvailableSeat(string flightId, MongoSeats seat)
+    {
+        await _flights.UpdateOneAsync(
+            f => f.Id == flightId, 
+            Builders<MongoFlights>.Update.Push(f => f.AvailableSeats, seat),
+            new UpdateOptions{IsUpsert = true});
+    }
+    
     public async Task DeleteAvailableSeat(string flightId, string seatId)
     {
         var newpost = await GetFlightById(flightId);
