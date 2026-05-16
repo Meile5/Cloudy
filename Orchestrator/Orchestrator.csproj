@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Worker">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>dotnet-Orchestrator-a3b64317-fac6-428b-98b4-6742fe881d85</UserSecretsId>
@@ -9,6 +9,7 @@
 
     <ItemGroup>
         <PackageReference Include="EasyNetQ" Version="7.8.0" />
+        <PackageReference Include="EasyNetQ.Serialization.NewtonsoftJson" Version="7.8.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.27" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.27" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.27">
@@ -17,5 +18,9 @@
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.27" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 </Project>

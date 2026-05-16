@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchestrator", "Orchestrator\Orchestrator.csproj", "{76360B29-27ED-40AD-AE9E-B762EAFDBDD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{43DEA01E-A153-4B8B-9401-447D57BBA5FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,5 +25,9 @@ Global
 		{76360B29-27ED-40AD-AE9E-B762EAFDBDD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76360B29-27ED-40AD-AE9E-B762EAFDBDD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76360B29-27ED-40AD-AE9E-B762EAFDBDD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43DEA01E-A153-4B8B-9401-447D57BBA5FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43DEA01E-A153-4B8B-9401-447D57BBA5FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43DEA01E-A153-4B8B-9401-447D57BBA5FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43DEA01E-A153-4B8B-9401-447D57BBA5FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

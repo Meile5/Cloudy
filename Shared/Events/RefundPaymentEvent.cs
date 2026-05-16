@@ -1,8 +1,7 @@
 namespace AirlinesBookingSystem.Events;
 
-public class BookingFailEvent
+public class RefundPaymentEvent
 {
     public Guid SagaId { get; set; }
-    public string Message { get; set; }
-    
+    public Guid PaymentId { get; set; }
 }

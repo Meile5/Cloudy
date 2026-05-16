@@ -3,6 +3,8 @@ namespace AirlinesBookingSystem.Events;
 public class PaymentSuccessStartBookingEvent
 {
     public Guid SagaId { get; set; }
+    
+    public Guid PaymentId { get; set; }
     public string Message { get; set; }
     
     public string BookingReference { get; set; } = null!;

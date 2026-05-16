@@ -1,6 +1,7 @@
 using AirlinesBookingSystem.Events;
 using AirlinesBookingSystem.Handlers;
 using AirlinesBookingSystem.Interfaces;
+using Orchestrator.Interfaces;
 using Orchestrator.Interfaces.Services;
 using Orchestrator.Models;
 
@@ -31,9 +32,16 @@ public class AirlinesSagaOrchestrator :
    
     public async Task HandleAsync(BookingFailEvent message, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        var command = new RefundPaymentEvent()
+        {
+            SagaId = message.SagaId,
+            PaymentId = message.PaymentId,
+        };
+        
+        await _airlineClient.Publish<RefundPaymentEvent>(command);
     }
 
+    //starting flow
     public async Task HandleAsync(BookingStartedEvent booking, CancellationToken ct)
     {
         var sagaId = Guid.NewGuid();
@@ -58,21 +66,26 @@ public class AirlinesSagaOrchestrator :
         });
     }
 
+    //booking success
     public async Task HandleAsync(BookingSuccessEvent message, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
 
+    //on payment start (could be deleted?)
     public async Task HandleAsync(StartPaymentEvent message, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
 
+    //payment fail
     public async Task HandleAsync(PayentFailEvent message, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        //since this is the first step in the flow, I don't think anything needs to be done here if it fails
+        //nothing to roll back yet
     }
 
+    //payment success
     public async Task HandleAsync(PaymentSuccessEvent message, CancellationToken ct)
     {
         await _airlineClient.Publish(new PaymentSuccessStartBookingEvent()

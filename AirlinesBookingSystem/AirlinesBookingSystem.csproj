@@ -11,6 +11,7 @@
 
     <ItemGroup>
         <PackageReference Include="EasyNetQ" Version="7.8.0" />
+        <PackageReference Include="EasyNetQ.Serialization.NewtonsoftJson" Version="7.8.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.27" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.27" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.27">
@@ -39,6 +40,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Orchestrator\Orchestrator.csproj" />
+      <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
+
+    
 </Project>

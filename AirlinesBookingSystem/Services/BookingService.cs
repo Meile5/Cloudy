@@ -13,7 +13,7 @@ public class BookingService(IBookingRepository repo, ISeatRepository seatRepo, I
     {
         return await repo.GetAllBookings();
     }
-    
+
     public async Task<Booking> GetBookingById(string bookingId)
     {
         try
@@ -26,10 +26,24 @@ public class BookingService(IBookingRepository repo, ISeatRepository seatRepo, I
             Console.WriteLine(e.StackTrace);
             throw;
         }
-        
     }
-    
+
     public async Task AddBooking(CreateBookingDto booking)
+    {
+        var newBooking = CreateBookingDto.ToBooking(booking);
+        await repo.AddBooking(newBooking);
+
+        //once booking is made, seat is no longer available
+        //so we also update mongodb
+        var command = new MongoRemoveSeatCommand()
+        {
+            flightId = booking.FlightId,
+            seatId = booking.SeatId,
+        };
+        await client.Publish<MongoRemoveSeatCommand>(command);
+    }
+
+    /*public async Task AddBooking(CreateBookingDto booking)
     {
         var seat = await seatRepo.GetSeatById(booking.SeatId);
 
@@ -49,14 +63,15 @@ public class BookingService(IBookingRepository repo, ISeatRepository seatRepo, I
             };
             await client.Publish<MongoAddSeatCommand>(command);
         }
-        
+
     }
-    
+    */
+
     public async Task UpdateBooking(Booking booking)
     {
         await repo.UpdateBooking(booking);
     }
-    
+
     //we prob dont want to hard delete a booking, but I'll put this here in case
     public async Task DeleteBooking(string bookingId)
     {

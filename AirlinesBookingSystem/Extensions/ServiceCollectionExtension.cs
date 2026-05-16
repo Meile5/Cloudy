@@ -16,4 +16,11 @@ public static class ServiceExtension
         });
         return services;
     }
+    
+    public static IServiceCollection AddRabbitMqMessageClient(this IServiceCollection services, ClientOptions options)
+    {
+        IAirlineClient messageClient = RabbitMqFactory.CreateMessageClient(options);
+        services.AddSingleton(messageClient);
+        return services;
+    }
 }

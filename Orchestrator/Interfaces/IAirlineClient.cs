@@ -1,6 +1,6 @@
 using AirlinesBookingSystem.Handlers;
 
-namespace AirlinesBookingSystem.Interfaces;
+namespace Orchestrator.Interfaces;
 
 public interface IAirlineClient
 {

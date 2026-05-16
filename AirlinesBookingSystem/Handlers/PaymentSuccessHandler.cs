@@ -32,6 +32,7 @@ public class PaymentSuccessHandler (IBookingService service, IAirlineClient clie
             var bookingFailEvent = new BookingFailEvent
             {
                 SagaId = message.SagaId,
+                PaymentId = message.PaymentId,
                 Message = ex.Message,
             };
             client.Publish<BookingFailEvent>(bookingFailEvent);

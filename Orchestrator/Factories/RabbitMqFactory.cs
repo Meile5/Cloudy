@@ -1,10 +1,11 @@
 using AirlinesBookingSystem.Adapters;
 using AirlinesBookingSystem.Configuration;
-using AirlinesBookingSystem.Implementation;
 using AirlinesBookingSystem.Interfaces;
 using EasyNetQ;
+using Orchestrator.Implementation;
+using Orchestrator.Interfaces;
 
-namespace AirlinesBookingSystem.Factories;
+namespace Orchestrator.Factories;
 
 public static class RabbitMqFactory
 {

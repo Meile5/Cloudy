@@ -1,7 +1,8 @@
 using AirlinesBookingSystem.Handlers;
 using AirlinesBookingSystem.Interfaces;
+using Orchestrator.Interfaces;
 
-namespace AirlinesBookingSystem.Implementation;
+namespace Orchestrator.Implementation;
 
 
 public class AirlineClient(IEventsAdapter adapter) : IAirlineClient

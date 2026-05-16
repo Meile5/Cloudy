@@ -1,8 +1,8 @@
 using AirlinesBookingSystem.Configuration;
-using AirlinesBookingSystem.Factories;
-using AirlinesBookingSystem.Interfaces;
+using Orchestrator.Factories;
+using Orchestrator.Interfaces;
 
-namespace AirlinesBookingSystem.Extensions;
+namespace Orchestrator.Extensions;
 
 public static class ServiceExtension
 {
