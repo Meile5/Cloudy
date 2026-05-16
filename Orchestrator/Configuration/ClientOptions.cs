@@ -1,4 +1,4 @@
-namespace AirlinesBookingSystem.Configuration;
+namespace Orchestrator.Configuration;
 
 public class ClientOptions
 {

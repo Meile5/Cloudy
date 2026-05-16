@@ -2,8 +2,9 @@ using System.Reflection;
 using AirlinesBookingSystem.Events;
 using AirlinesBookingSystem.Extensions;
 using AirlinesBookingSystem.Interfaces.Repositories;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Orchestrator;
+using Microsoft.OpenApi;
 using Orchestrator.Database;
 using Orchestrator.Database.Repositories;
 using Orchestrator.Extensions;
@@ -11,9 +12,9 @@ using Orchestrator.Handlers;
 using Orchestrator.Interfaces.Services;
 using Orchestrator.Services;
 
-var builder = Host.CreateApplicationBuilder(args);
-builder.Services.AddHostedService<Worker>();
-
+var builder = WebApplication.CreateBuilder(args);
+//builder.Services.AddHostedService<Worker>();
+builder.Services.AddControllers();
 
 var connectionString = builder.Configuration["ConnectionString"];
 
@@ -22,6 +23,13 @@ builder.Services.AddDbContext<SagaContext>(options =>
 
 builder.Services.AddScoped<ISagaRepository, SagaRepository>();
 builder.Services.AddScoped<ISagaService, SagaService>();
+
+//swagger setup (part 1)
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+});
 
 
 // Auto-register handlers via reflection
@@ -39,11 +47,21 @@ var handlers = Assembly.GetExecutingAssembly()
 
 foreach (var handler in handlers)
 {
+    var interfaceList = handler.GetInterfaces();
+    foreach (var inter in interfaceList)
+    {
+        if (inter.IsGenericType && inter.GetGenericTypeDefinition() == handlerType)
+        {
+            builder.Services.AddScoped(inter, handler);
+        }
+    }
+    
+    /*
     var interfaceType = handler.GetInterfaces()
         .First(i => i.IsGenericType &&
                     i.GetGenericTypeDefinition() == handlerType);
 
-    builder.Services.AddScoped(interfaceType, handler);
+    builder.Services.AddScoped(interfaceType, handler);*/
 }
 
 //inject rabbitmq client
@@ -51,16 +69,25 @@ var options = builder.Services.MessageClientOptions(builder.Configuration);
 builder.Services.AddRabbitMqMessageClient(options);
 
 //subscriptions
-builder.Services.AddSubscription<BookingSuccessEvent>("new-subscriber");
-builder.Services.AddSubscription<BookingFailEvent>("new-subscriber");
-builder.Services.AddSubscription<BookingStartedEvent>("new-subscriber");
+builder.Services.AddSubscription<BookingSuccessEvent>("booking-success");
+builder.Services.AddSubscription<BookingFailEvent>("booking-failed");
+builder.Services.AddSubscription<BookingStartedEvent>("booking-started");
 
-builder.Services.AddSubscription<PaymentSuccessEvent>("new-subscriber");
-builder.Services.AddSubscription<PayentFailEvent>("new-subscriber");
-builder.Services.AddSubscription<StartPaymentEvent>("new-subscriber");
+builder.Services.AddSubscription<PaymentSuccessEvent>("payment-success");
+builder.Services.AddSubscription<PayentFailEvent>("payment-failed");
+builder.Services.AddSubscription<StartPaymentEvent>("start-payment");
 
 
 var host = builder.Build();
 
+host.MapControllers();
 
-host.Run();
+//swagger setup (part 2)
+if (host.Environment.IsDevelopment())
+{
+    host.UseSwagger();
+    host.UseSwaggerUI();
+}
+
+//feel free to change, this is just so it isn't the same as booking service
+host.Run("http://localhost:4000");

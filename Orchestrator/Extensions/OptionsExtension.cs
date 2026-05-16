@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using AirlinesBookingSystem.Configuration;
+using Orchestrator.Configuration;
 
 namespace AirlinesBookingSystem.Extensions;
 

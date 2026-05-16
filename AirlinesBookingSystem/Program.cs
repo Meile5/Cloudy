@@ -14,6 +14,7 @@ using AirlinesFlightsystem.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 using MongoDB.Driver;
+using Shared.Events;
 
 
 var builder = WebApplication.CreateBuilder(args);

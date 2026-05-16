@@ -4,6 +4,7 @@ using Orchestrator.Handlers;
 using Orchestrator.Interfaces;
 using Orchestrator.Interfaces.Services;
 using Orchestrator.Models;
+using Shared.Events;
 
 namespace Orchestrator.Orchestrator;
 
@@ -61,7 +62,8 @@ public class AirlinesSagaOrchestrator :
             BookingReference = booking.BookingReference,
             PassengerId = booking.PassengerId,
             FlightId = booking.FlightId,
-            Amount = booking.Amount
+            Amount = booking.Amount,
+            SeatId = booking.SeatId
             
         });
     }
@@ -69,13 +71,13 @@ public class AirlinesSagaOrchestrator :
     //booking success
     public async Task HandleAsync(BookingSuccessEvent message, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     //on payment start (could be deleted?)
     public async Task HandleAsync(StartPaymentEvent message, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     //payment fail
@@ -92,6 +94,11 @@ public class AirlinesSagaOrchestrator :
         {
             SagaId = message.SagaId,
             Message = message.Message,
+            PaymentId = message.PaymentId,
+            BookingReference = message.BookingReference,
+            PassengerId = message.PassengerId,
+            FlightId = message.FlightId,
+            SeatId = message.SeatId
         });
         var updatedState = new SagaState
         {

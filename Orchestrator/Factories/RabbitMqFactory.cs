@@ -1,7 +1,7 @@
-using AirlinesBookingSystem.Adapters;
-using AirlinesBookingSystem.Configuration;
 using AirlinesBookingSystem.Interfaces;
 using EasyNetQ;
+using Orchestrator.Adapters;
+using Orchestrator.Configuration;
 using Orchestrator.Implementation;
 using Orchestrator.Interfaces;
 

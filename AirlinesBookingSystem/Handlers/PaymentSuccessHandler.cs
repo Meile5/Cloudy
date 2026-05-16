@@ -2,6 +2,7 @@ using AirlinesBookingSystem.DTOs.Create;
 using AirlinesBookingSystem.Events;
 using AirlinesBookingSystem.Interfaces;
 using AirlinesBookingSystem.Interfaces.Services;
+using Shared.Events;
 
 namespace AirlinesBookingSystem.Handlers;
 
@@ -14,6 +15,7 @@ public class PaymentSuccessHandler (IBookingService service, IAirlineClient clie
             FlightId = message.FlightId,
             PassengerId = message.PassengerId,
             BookingReference = message.BookingReference,
+            SeatId = message.SeatId
             
         };
         try
@@ -35,7 +37,7 @@ public class PaymentSuccessHandler (IBookingService service, IAirlineClient clie
                 PaymentId = message.PaymentId,
                 Message = ex.Message,
             };
-            client.Publish<BookingFailEvent>(bookingFailEvent);
+            await client.Publish<BookingFailEvent>(bookingFailEvent);
         }
     }
 }

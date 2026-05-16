@@ -1,4 +1,4 @@
-namespace AirlinesBookingSystem.Events;
+namespace Shared.Events;
 
 public class PaymentSuccessStartBookingEvent
 {
@@ -10,5 +10,5 @@ public class PaymentSuccessStartBookingEvent
     public string BookingReference { get; set; } = null!;
     public string PassengerId { get; set; } = null!;
     public string FlightId { get; set; } = null!;
-    
+    public string SeatId { get; set; } = null!;
 }
