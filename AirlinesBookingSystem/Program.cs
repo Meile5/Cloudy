@@ -98,7 +98,11 @@ builder.Services.AddScoped<ISeatLockService, SeatLockService>();
 //rabbitmq setup & subscribing 
 var options = builder.Services.MessageClientOptions(builder.Configuration);
 builder.Services.AddRabbitMqMessageClient(options);
-builder.Services.AddSubscription<PaymentSuccessStartBookingEvent>("new-subscriber");
+builder.Services.AddSubscription<PaymentSuccessStartBookingEvent>("new-subscriber-" + Guid.NewGuid());
+builder.Services.AddSubscription<MongoAddSeatCommand>("mongo-seat-" + Guid.NewGuid());
+builder.Services.AddSubscription<MongoRemoveSeatCommand>("remove-set-" + Guid.NewGuid());
+builder.Services.AddSubscription<MongoAddFlightCommand>("mongo-add-flight-" + Guid.NewGuid());
+
 
 
 

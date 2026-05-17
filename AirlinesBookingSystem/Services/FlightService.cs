@@ -31,6 +31,8 @@ public class FlightService(IFlightRepository repo) : IFlightService
     {
         var newFlight = CreateFlightDto.ToFlight(flight);
         await repo.AddFlight(newFlight);
+        
+        
     }
     
     public async Task UpdateFlight(Flight flight)
