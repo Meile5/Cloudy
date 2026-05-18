@@ -56,6 +56,7 @@ public class SeatService(ISeatRepository repo, IAirlineClient client) : ISeatSer
                 SeatNumber = seat.SeatNumber,
                 CabinClass = seat.CabinClass,
                 FareClass = seat.FareClass ?? null,
+                Status = seat.Status,
                 Price = seat.Price
             };
             await client.Publish<MongoAddSeatCommand>(command);

@@ -1,5 +1,7 @@
+using System.Collections.Concurrent;
 using AirlinesBookingSystem.Handlers;
 using AirlinesBookingSystem.Interfaces;
+using EasyNetQ.Internals;
 
 namespace AirlinesBookingSystem.Adapters;
 using EasyNetQ;
@@ -7,7 +9,7 @@ using EasyNetQ;
 
 public class AirlinesAdapter(IBus _bus) : IEventsAdapter
 {
-    private Dictionary<string, SubscriptionResult> _subscriptions = new Dictionary<string, SubscriptionResult>();
+    private ConcurrentDictionary<string, SubscriptionResult> _subscriptions = new ConcurrentDictionary<string, SubscriptionResult>();
     
     public async Task Subscribe<T>(string subscriptionId, AirlineHandler<T>? handler, CancellationToken token = default)
     {
@@ -17,7 +19,7 @@ public class AirlinesAdapter(IBus _bus) : IEventsAdapter
         }
         
         var result = await _bus.PubSub.SubscribeAsync<T>(subscriptionId, handler.Handler, token);
-        _subscriptions.Add(subscriptionId, result);
+        _subscriptions.TryAdd(subscriptionId, result);
     }
 
     public async Task Publish<T>(T message, CancellationToken token = default)

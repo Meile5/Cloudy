@@ -11,6 +11,8 @@ public class MongoAddSeatCommand
     public string CabinClass { get; set; } = null!;
 
     public string? FareClass { get; set; }
+    
+    public string Status { get; set; } = null!;
 
     public decimal Price { get; set; }
     

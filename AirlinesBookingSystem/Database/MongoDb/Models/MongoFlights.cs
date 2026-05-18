@@ -6,7 +6,7 @@ namespace AirlinesBookingSystem.Database.MongoDb.Models;
 public class MongoFlights
 {
     [BsonId] 
-    [BsonRepresentation(BsonType.ObjectId)]
+    //[BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; } = null!;
     
     public string FlightNumber { get; set; } = null!;
@@ -19,7 +19,7 @@ public class MongoFlights
 
     public DateTime ArrivalTime { get; set; }
 
-    [BsonRepresentation(BsonType.ObjectId)]
+    //[BsonRepresentation(BsonType.ObjectId)]
     public string? AircraftId { get; set; }
 
     public string? Status { get; set; }
