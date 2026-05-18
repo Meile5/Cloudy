@@ -32,10 +32,20 @@ public class SeatService(ISeatRepository repo, IAirlineClient client) : ISeatSer
     public async Task AddSeat(CreateSeatDto seat)
     {
         var newSeat = CreateSeatDto.ToSeat(seat);
+        
+        await UpdateMongoSeats(newSeat);
+        
         await repo.AddSeat(newSeat);
     }
     
     public async Task UpdateSeat(Seat seat)
+    {
+        await UpdateMongoSeats(seat);
+        
+        await repo.UpdateSeat(seat);
+    }
+
+    public async Task UpdateMongoSeats(Seat seat)
     {
         if (seat.Status == "available")
         {
@@ -59,8 +69,6 @@ public class SeatService(ISeatRepository repo, IAirlineClient client) : ISeatSer
 
             await client.Publish<MongoRemoveSeatCommand>(command);
         }
-        
-        await repo.UpdateSeat(seat);
     }
     
     public async Task DeleteSeat(string seatId)
