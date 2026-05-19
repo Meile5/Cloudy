@@ -1,6 +1,4 @@
-using AirlinesBookingSystem.DTOs.Create;
 using AirlinesBookingSystem.Interfaces;
-using AirlinesBookingSystem.Interfaces.Services;
 using Shared.Events;
 
 namespace AirlinesBookingSystem.Handlers;
