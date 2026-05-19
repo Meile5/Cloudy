@@ -1,5 +1,4 @@
 using System.Collections.Concurrent;
-using AirlinesBookingSystem.Interfaces;
 using EasyNetQ;
 using EasyNetQ.Internals;
 using PaymentService.Handlers;

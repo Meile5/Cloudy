@@ -1,4 +1,3 @@
-using AirlinesBookingSystem.Interfaces;
 using EasyNetQ;
 using PaymentService.Adapters;
 using PaymentService.Configuration;

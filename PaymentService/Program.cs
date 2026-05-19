@@ -4,6 +4,9 @@ using Microsoft.OpenApi;
 using PaymentService.Database;
 using PaymentService.Extensions;
 using PaymentService.Handlers;
+using PaymentService.Interfaces.Repositories;
+using PaymentService.Interfaces.Services;
+using PaymentService.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,12 @@ var connectionString = builder.Configuration["ConnectionString"];
 
 builder.Services.AddDbContext<PaymentContext>(options =>
     options.UseSqlServer(connectionString));
+
+//adding services
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IPaymentService, PaymentService.Service.PaymentService>();
+
+
 
 builder.Services.AddControllers();
 

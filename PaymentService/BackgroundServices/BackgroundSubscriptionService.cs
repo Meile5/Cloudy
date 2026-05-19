@@ -1,4 +1,3 @@
-using AirlinesBookingSystem.Interfaces;
 using PaymentService.Handlers;
 using PaymentService.Interfaces;
 
