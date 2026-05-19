@@ -11,8 +11,7 @@ public class AirlinesSagaOrchestrator :
     IEventHandler<BookingFailEvent>,
     IEventHandler<BookingStartedEvent>,
     IEventHandler<BookingSuccessEvent>,
-    IEventHandler<StartPaymentEvent>,
-    IEventHandler<PayentFailEvent>,
+    IEventHandler<PaymentFailEvent>,
     IEventHandler<PaymentSuccessEvent>
     
 {
@@ -71,18 +70,31 @@ public class AirlinesSagaOrchestrator :
     {
         //throw new NotImplementedException();
     }
-
-    //on payment start (could be deleted?)
-    public async Task HandleAsync(StartPaymentEvent message, CancellationToken ct)
-    {
-        //throw new NotImplementedException();
-    }
+    
 
     //payment fail
-    public async Task HandleAsync(PayentFailEvent message, CancellationToken ct)
+    public async Task HandleAsync(PaymentFailEvent message, CancellationToken ct)
     {
-        //since this is the first step in the flow, I don't think anything needs to be done here if it fails
-        //nothing to roll back yet
+        await _airlineClient.Publish(new PaymentFailReleaseSeatEvent()
+        {
+            SagaId = message.SagaId,
+            Message = message.Message,
+            PaymentId = message.PaymentId,
+            PassengerId = message.PassengerId,
+            FlightId = message.FlightId,
+            SeatId = message.SeatId
+        });
+        var updatedState = new SagaState
+        {
+            SagaId = message.SagaId,
+            BookingProcessed = false,
+            PaymentProcessed = false,
+            IsCompleted = false,
+            IsFailed = true,
+            PaymentId = message.PaymentId
+        };
+        
+        await _service.Update(updatedState);
     }
 
     //payment success

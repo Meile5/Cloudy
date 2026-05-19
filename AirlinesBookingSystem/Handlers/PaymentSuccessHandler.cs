@@ -36,7 +36,6 @@ public class PaymentSuccessHandler(
         }
         catch (Exception ex)
         {
-            await seatLockService.ReleaseSeatAsync(message.FlightId, message.SeatId);
             await client.Publish(new BookingFailEvent
             {
                 SagaId = message.SagaId,
