@@ -37,7 +37,7 @@ public class CreateFlightDto
             DepartureTime = dto.DepartureTime,
             ArrivalTime = dto.ArrivalTime,
             AircraftId = dto.AircraftId,
-            Status =dto.Status,
+            Status = dto.Status,
             BaseFare = dto.BaseFare,
             Currency = dto.Currency,
             CreatedAt = dto.CreatedAt,

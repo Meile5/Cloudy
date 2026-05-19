@@ -6,7 +6,7 @@ namespace AirlinesBookingSystem.Database.MongoDb.Models;
 public class MongoSeats
 {
     [BsonId] 
-    [BsonRepresentation(BsonType.ObjectId)]
+    //[BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; } = null!;
     
     public string SeatNumber { get; set; } = null!;

@@ -68,13 +68,13 @@ var options = builder.Services.MessageClientOptions(builder.Configuration);
 builder.Services.AddRabbitMqMessageClient(options);
 
 //subscriptions
-builder.Services.AddSubscription<BookingSuccessEvent>("booking-success");
-builder.Services.AddSubscription<BookingFailEvent>("booking-failed");
-builder.Services.AddSubscription<BookingStartedEvent>("booking-started");
+builder.Services.AddSubscription<BookingSuccessEvent>("booking-success-" + Guid.NewGuid());
+builder.Services.AddSubscription<BookingFailEvent>("booking-failed-" + Guid.NewGuid());
+builder.Services.AddSubscription<BookingStartedEvent>("booking-started-" + Guid.NewGuid());
 
-builder.Services.AddSubscription<PaymentSuccessEvent>("payment-success");
-builder.Services.AddSubscription<PayentFailEvent>("payment-failed");
-builder.Services.AddSubscription<StartPaymentEvent>("start-payment");
+builder.Services.AddSubscription<PaymentSuccessEvent>("payment-success-" + Guid.NewGuid());
+builder.Services.AddSubscription<PayentFailEvent>("payment-failed-" + Guid.NewGuid());
+builder.Services.AddSubscription<StartPaymentEvent>("start-payment-" + Guid.NewGuid());
 
 
 var host = builder.Build();
