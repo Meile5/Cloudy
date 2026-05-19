@@ -100,6 +100,7 @@ public class BookingService(IBookingRepository repo, IAirlineClient client, ISea
             FlightId = booking.FlightId,
             SeatId = booking.SeatId,
             Amount = booking.Price,
+            
         });
 
         return (true, null);

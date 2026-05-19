@@ -60,7 +60,8 @@ public class AirlinesSagaOrchestrator :
             PassengerId = booking.PassengerId,
             FlightId = booking.FlightId,
             Amount = booking.Amount,
-            SeatId = booking.SeatId
+            SeatId = booking.SeatId,
+            CardNumber = booking.CardNumber,
             
         });
     }
@@ -79,7 +80,6 @@ public class AirlinesSagaOrchestrator :
         {
             SagaId = message.SagaId,
             Message = message.Message,
-            PaymentId = message.PaymentId,
             PassengerId = message.PassengerId,
             FlightId = message.FlightId,
             SeatId = message.SeatId

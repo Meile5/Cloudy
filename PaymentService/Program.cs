@@ -7,6 +7,7 @@ using PaymentService.Handlers;
 using PaymentService.Interfaces.Repositories;
 using PaymentService.Interfaces.Services;
 using PaymentService.Repositories;
+using Shared.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +56,10 @@ foreach (var handler in handlers)
 //rabbitmq setup & subscribing 
 var options = builder.Services.MessageClientOptions(builder.Configuration);
 builder.Services.AddRabbitMqMessageClient(options);
+
+builder.Services.AddSubscription<StartPaymentEvent>("new-subscriber-" + Guid.NewGuid());
+builder.Services.AddSubscription<RefundPaymentEvent>("new-subscriber-" + Guid.NewGuid());
+
 
 var app = builder.Build();
 

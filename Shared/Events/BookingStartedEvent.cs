@@ -8,5 +8,7 @@ public class BookingStartedEvent
     public string FlightId { get; set; } = null!;
     public string SeatId { get; set; } = null!;
     
+    public string CardNumber { get; set; } = null!;
+    public string Currency { get; set; } = null!;
     public decimal Amount  {get; set;}
 }

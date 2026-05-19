@@ -17,10 +17,11 @@ public class PaymentService(IPaymentRepository repo) : IPaymentService
         return await repo.GetPaymentById(paymentId);
     }
     
-    public async Task AddPayment(CreatePaymentDto payment)
+    public async Task<Payment> AddPayment(CreatePaymentDto payment)
     {
         var newPayment = CreatePaymentDto.toPayment(payment);
         await repo.AddPayment(newPayment);
+        return newPayment;
     }
     
     public async Task UpdatePayment(Payment payment)

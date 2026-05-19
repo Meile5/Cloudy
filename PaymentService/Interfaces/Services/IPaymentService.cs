@@ -9,7 +9,7 @@ public interface IPaymentService
 
     public  Task<Payment?> GetPaymentById(string paymentId);
 
-    public Task AddPayment(CreatePaymentDto payment);
+    public Task<Payment> AddPayment(CreatePaymentDto payment);
 
     public Task UpdatePayment(Payment payment);
     public Task RefundPayment(Payment payment);

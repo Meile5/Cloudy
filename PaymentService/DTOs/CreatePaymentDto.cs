@@ -8,7 +8,7 @@ public class CreatePaymentDto
 
     public decimal Amount { get; set; }
 
-    public string Status { get; set; } = null!;
+    //public string Status { get; set; } = null!;
 
     public string Currency { get; set; } = null!;
 
@@ -19,7 +19,7 @@ public class CreatePaymentDto
             Id = Guid.NewGuid().ToString(),
             CardNumber = dto.CardNumber,
             Amount = dto.Amount,
-            Status = dto.Status,
+            Status = "reserved",
             Currency = dto.Currency,
             CreatedAt = DateTime.Now,
             UpdatedAt = DateTime.Now
@@ -32,7 +32,6 @@ public class CreatePaymentDto
         {
             CardNumber = dto.CardNumber,
             Amount = dto.Amount,
-            Status = dto.Status,
             Currency = dto.Currency,
         };
     }
