@@ -57,7 +57,6 @@ builder.Services.AddScoped<ISeatService, SeatService>();
 
 
 //mongo db setup
-
 builder.Services.AddSingleton<IMongoClient>(
     new MongoClient(builder.Configuration["MongoDB:ConnectionString"]));
 
