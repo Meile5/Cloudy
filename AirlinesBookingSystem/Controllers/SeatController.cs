@@ -1,4 +1,5 @@
 ﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.DTOs.Update;
 using AirlinesBookingSystem.Interfaces.Services;
 using AirlinesBookingSystem.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +40,7 @@ public class SeatController(ISeatService service) : ControllerBase
     
     [HttpPut]
     [Route("/Update-Seat")]
-    public async Task<IActionResult> UpdateSeat([FromBody] Seat seat)
+    public async Task<IActionResult> UpdateSeat([FromBody] UpdateSeatDto seat)
     {
         await service.UpdateSeat(seat);
         return Ok();
