@@ -100,6 +100,8 @@ public class BookingService(IBookingRepository repo, IAirlineClient client, ISea
             FlightId = booking.FlightId,
             SeatId = booking.SeatId,
             Amount = booking.Price,
+            CardNumber = booking.CardNumber!,
+            Currency = booking.Currency!,
             
         });
 

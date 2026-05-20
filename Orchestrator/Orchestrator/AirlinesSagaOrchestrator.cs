@@ -62,6 +62,7 @@ public class AirlinesSagaOrchestrator :
             Amount = booking.Amount,
             SeatId = booking.SeatId,
             CardNumber = booking.CardNumber,
+            Currency = booking.Currency,
             
         });
     }
