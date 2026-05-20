@@ -70,7 +70,15 @@ public class AirlinesSagaOrchestrator :
     //booking success
     public async Task HandleAsync(BookingSuccessEvent message, CancellationToken ct)
     {
-        //throw new NotImplementedException();
+        var state = new SagaState
+        {
+            SagaId = message.SagaId,
+            BookingProcessed = true,
+            PaymentProcessed = true,
+            IsCompleted = true,
+            IsFailed = false,
+        };
+        await _service.Save(state);
     }
     
 

@@ -6,7 +6,6 @@ namespace AirlinesBookingSystem.DTOs.Create;
 public class CreateSeatDto
 {
     
-    public string Id { get; set; } = null!;
 
     public string FlightId { get; set; } = null!;
 
@@ -28,7 +27,7 @@ public class CreateSeatDto
     {
         return new Seat
         {
-            Id = dto.Id,
+            Id = Guid.NewGuid().ToString(),
             FlightId = dto.FlightId,
             SeatNumber = dto.SeatNumber,
             CabinClass = dto.CabinClass,
@@ -44,7 +43,6 @@ public class CreateSeatDto
     {
         return new CreateSeatDto()
         {
-            Id = seat.Id,
             FlightId = seat.FlightId,
             SeatNumber = seat.SeatNumber,
             CabinClass = seat.CabinClass,
