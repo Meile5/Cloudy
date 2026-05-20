@@ -53,6 +53,7 @@ public class SeatService(ISeatRepository repo, IAirlineClient client) : ISeatSer
         var seat = await GetSeatById(seatId);
 
         seat.Status = "sold";
+        seat.UpdatedAt = DateTime.Now;
         
         await UpdateMongoSeats(seat);
         

@@ -78,7 +78,7 @@ public class AirlinesSagaOrchestrator :
             IsCompleted = true,
             IsFailed = false,
         };
-        await _service.Save(state);
+        await _service.Update(state);
     }
     
 
