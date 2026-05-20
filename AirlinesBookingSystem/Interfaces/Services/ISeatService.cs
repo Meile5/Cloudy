@@ -14,5 +14,7 @@ public interface ISeatService
 
     public  Task UpdateSeat(UpdateSeatDto seat);
 
+    public Task SellSeat(string seatId);
+
     public Task DeleteSeat(string seatId);
 }

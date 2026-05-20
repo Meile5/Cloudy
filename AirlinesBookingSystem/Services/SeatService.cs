@@ -47,6 +47,17 @@ public class SeatService(ISeatRepository repo, IAirlineClient client) : ISeatSer
         
         await repo.UpdateSeat(newSeat);
     }
+    
+    public async Task SellSeat(string seatId)
+    {
+        var seat = await GetSeatById(seatId);
+
+        seat.Status = "sold";
+        
+        await UpdateMongoSeats(seat);
+        
+        await repo.UpdateSeat(seat);
+    }
 
     public async Task UpdateMongoSeats(Seat seat)
     {
