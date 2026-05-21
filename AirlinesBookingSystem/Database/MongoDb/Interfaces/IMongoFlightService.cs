@@ -10,15 +10,15 @@ public interface IMongoFlightService
 
     public Task<List<MongoFlights>> GetAllFlights();
 
-    public Task<List<MongoFlights>> GetSoonestFlights(int limit = 15);
+    
 
-    public Task UpdatePost(MongoFlights flight);
+    public Task UpdateFlight(MongoFlights flight);
 
-    public Task AddAvailableSeat(string flightId, MongoSeats seat);
+    
 
     public Task UpsertAvailableSeat(string flightId, MongoSeats seat);
 
     public  Task DeleteAvailableSeat(string flightId, string seatId);
 
-    public Task DeletePost(string id);
+    public Task DeleteFlight(string id);
 }

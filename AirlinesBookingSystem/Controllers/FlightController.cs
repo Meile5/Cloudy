@@ -20,15 +20,6 @@ public class FlightController (IFlightService service ) : ControllerBase
 
     }
     
-    /*[HttpGet]
-    [Route("/Get-Flight-By-Id")]
-    public async Task<IActionResult> GetFlightById([FromQuery] string flightId)
-    {
-        var flight = await service.GetFlightById(flightId);
-
-        return Ok(flight);
-        
-    }*/
     
     [HttpPost]
     [Route("/Add-Flight")]
@@ -46,11 +37,5 @@ public class FlightController (IFlightService service ) : ControllerBase
         return Ok();
     }
     
-    /*[HttpDelete]
-    [Route("/Delete-Flight")]
-    public async Task<IActionResult> DeleteFlight(string flightId)
-    {
-        await service.DeleteFlight(flightId);
-        return Ok();
-    }*/
+    
 }

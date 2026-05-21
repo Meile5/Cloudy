@@ -3,10 +3,10 @@ using Shared.Events;
 
 namespace AirlinesBookingSystem.Handlers;
 
-public class MongoRemoveSeatHandler(IMongoFlightRepository repo) : IEventHandler<MongoRemoveSeatCommand>
+public class MongoRemoveSeatHandler(IMongoFlightService service) : IEventHandler<MongoRemoveSeatCommand>
 {
     public async Task HandleAsync(MongoRemoveSeatCommand message, CancellationToken ct)
     {
-        await repo.DeleteAvailableSeat(message.flightId, message.seatId);
+        await service.DeleteAvailableSeat(message.flightId, message.seatId);
     }
 }

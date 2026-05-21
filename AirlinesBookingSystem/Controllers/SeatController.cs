@@ -20,16 +20,7 @@ public class SeatController(ISeatService service) : ControllerBase
 
     }
     
-    /*[HttpGet]
-    [Route("/Get-Seat-By-Id")]
-    public async Task<IActionResult> GetSeatById([FromQuery] string seatId)
-    {
-        var flight = await service.GetSeatById(seatId);
 
-        return Ok(flight);
-        
-    }*/
-    
     [HttpPost]
     [Route("/Add-Seat")]
     public async Task<IActionResult> AddSeat([FromBody] CreateSeatDto seat)
@@ -46,11 +37,5 @@ public class SeatController(ISeatService service) : ControllerBase
         return Ok();
     }
     
-    /*[HttpDelete]
-    [Route("/Delete-Seat")]
-    public async Task<IActionResult> DeleteSeat(string seatId)
-    {
-        await service.DeleteSeat(seatId);
-        return Ok();
-    }*/
+    
 }
