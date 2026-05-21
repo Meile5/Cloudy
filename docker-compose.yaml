@@ -50,6 +50,7 @@
 
   redis:
     image: redis:latest
+    command: redis-server --appendonly yes --appendfsync everysec
     container_name: redis
     ports:
       - "6379:6379"
