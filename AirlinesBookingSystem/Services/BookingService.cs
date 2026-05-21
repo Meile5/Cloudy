@@ -43,36 +43,11 @@ public class BookingService(IBookingRepository repo, IAirlineClient client, ISea
         await client.Publish<MongoRemoveSeatCommand>(command);
     }
 
-    /*public async Task AddBooking(CreateBookingDto booking)
-    {
-        var seat = await seatRepo.GetSeatById(booking.SeatId);
-
-        if (seat != null)
-        {
-            var newBooking = CreateBookingDto.ToBooking(booking);
-            await repo.AddBooking(newBooking);
-
-            var command = new MongoAddSeatCommand
-            {
-                flightId = booking.FlightId,
-                seatId = booking.SeatId,
-                SeatNumber = seat.SeatNumber,
-                CabinClass = seat.CabinClass,
-                FareClass = seat.FareClass ?? null,
-                Price = seat.Price
-            };
-            await client.Publish<MongoAddSeatCommand>(command);
-        }
-
-    }
-    */
-
     public async Task UpdateBooking(Booking booking)
     {
         await repo.UpdateBooking(booking);
     }
 
-    //we prob dont want to hard delete a booking, but I'll put this here in case
     public async Task DeleteBooking(string bookingId)
     {
         await repo.DeleteBooking(bookingId);
