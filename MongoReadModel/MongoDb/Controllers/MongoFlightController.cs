@@ -1,7 +1,7 @@
-using AirlinesBookingSystem.Database.MongoDb.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using MongoReadModel.MongoDb.Interfaces;
 
-namespace AirlinesBookingSystem.Database.MongoDb.Controllers;
+namespace MongoReadModel.MongoDb.Controllers;
 
 
 [ApiController]

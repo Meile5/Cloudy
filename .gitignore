@@ -12,5 +12,8 @@ AirlinesBookingSystem/obj
 Shared/bin
 Shared/obj
 
+MongoReadModel/bin
+MongoReadModel/obj
+
 PaymentService/bin
 PaymentService/obj

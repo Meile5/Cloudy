@@ -45,5 +45,9 @@
       <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Database\MongoDb\ExampleJSONs\flight-seat-search.json" />
+    </ItemGroup>
+
     
 </Project>

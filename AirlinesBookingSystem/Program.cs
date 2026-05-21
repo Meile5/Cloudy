@@ -1,8 +1,5 @@
 using System.Reflection;
 using AirlinesBookingSystem.Database;
-using AirlinesBookingSystem.Database.MongoDb.Interfaces;
-using AirlinesBookingSystem.Database.MongoDb.Repositories;
-using AirlinesBookingSystem.Database.MongoDb.Services;
 using AirlinesBookingSystem.Extensions;
 using AirlinesBookingSystem.Handlers;
 using AirlinesBookingSystem.Interfaces;
@@ -45,22 +42,10 @@ builder.Services.AddScoped<IFlightRepository, FlightRepository>();
 builder.Services.AddScoped<IPassengerRepository, PassengerRepository>();
 builder.Services.AddScoped<ISeatRepository, SeatRepository>();
 
-builder.Services.AddScoped<IMongoFlightRepository, MongoFlightRepository>();
-builder.Services.AddScoped<IMongoFlightService, MongoFlightService>();
-
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IFlightService, FlightService>();
 builder.Services.AddScoped<IPassengerService, PassengerService>();
 builder.Services.AddScoped<ISeatService, SeatService>();
-
-
-//mongo db setup
-builder.Services.AddSingleton<IMongoClient>(
-    new MongoClient(builder.Configuration["MongoDB:ConnectionString"]));
-
-builder.Services.AddScoped<IMongoDatabase>(sp =>
-    sp.GetRequiredService<IMongoClient>()
-        .GetDatabase(builder.Configuration["MongoDB:Database"]));
 
 // Auto-register handlers via reflection
 // ------------------------------------------------------------
@@ -96,9 +81,7 @@ builder.Services.AddScoped<ISeatLockService, SeatLockService>();
 var options = builder.Services.MessageClientOptions(builder.Configuration);
 builder.Services.AddRabbitMqMessageClient(options);
 builder.Services.AddSubscription<PaymentSuccessStartBookingEvent>("new-subscriber-" + Guid.NewGuid());
-builder.Services.AddSubscription<MongoAddSeatCommand>("mongo-seat-" + Guid.NewGuid());
-builder.Services.AddSubscription<MongoRemoveSeatCommand>("remove-set-" + Guid.NewGuid());
-builder.Services.AddSubscription<MongoAddFlightCommand>("mongo-add-flight-" + Guid.NewGuid());
+
 builder.Services.AddSubscription<RevertBookingCommand>("remove-booking-" + Guid.NewGuid());
 builder.Services.AddSubscription<PaymentFailReleaseSeatEvent>("release-seat-" + Guid.NewGuid());
 

@@ -9,7 +9,7 @@ namespace AirlinesBookingSystem.Controllers;
 [Route("[controller]")]
 public class FlightController (IFlightService service ) : ControllerBase
 {
-    
+    //still useful to test if mongo and sql are in sync
     [HttpGet]
     [Route("/Get-All-Flights")]
     public async Task<IActionResult> GetAllFlights()
@@ -19,7 +19,6 @@ public class FlightController (IFlightService service ) : ControllerBase
         return Ok(allFlights);
 
     }
-    
     
     [HttpPost]
     [Route("/Add-Flight")]

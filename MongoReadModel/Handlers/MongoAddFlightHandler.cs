@@ -1,8 +1,8 @@
-using AirlinesBookingSystem.Database.MongoDb.Interfaces;
-using AirlinesBookingSystem.Database.MongoDb.Models;
+using MongoReadModel.MongoDb.Interfaces;
+using MongoReadModel.MongoDb.Models;
 using Shared.Events;
 
-namespace AirlinesBookingSystem.Handlers;
+namespace MongoReadModel.Handlers;
 
 public class MongoAddFlightHandler(IMongoFlightService service) : IEventHandler<MongoAddFlightCommand>
 {

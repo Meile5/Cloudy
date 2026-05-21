@@ -1,6 +1,6 @@
-using AirlinesBookingSystem.Database.MongoDb.Models;
+using MongoReadModel.MongoDb.Models;
 
-namespace AirlinesBookingSystem.Database.MongoDb.Interfaces;
+namespace MongoReadModel.MongoDb.Interfaces;
 
 public interface IMongoFlightService
 {

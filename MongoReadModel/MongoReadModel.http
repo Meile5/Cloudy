@@ -1,6 +1,0 @@
-@MongoReadModel_HostAddress = http://localhost:5146
-
-GET {{MongoReadModel_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

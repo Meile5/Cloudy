@@ -1,7 +1,7 @@
-using AirlinesBookingSystem.Database.MongoDb.Interfaces;
+using MongoReadModel.MongoDb.Interfaces;
 using Shared.Events;
 
-namespace AirlinesBookingSystem.Handlers;
+namespace MongoReadModel.Handlers;
 
 public class MongoRemoveSeatHandler(IMongoFlightService service) : IEventHandler<MongoRemoveSeatCommand>
 {
