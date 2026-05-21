@@ -13,8 +13,8 @@ public class AirlinesSagaOrchestrator :
     IEventHandler<BookingSuccessEvent>,
     IEventHandler<PaymentFailEvent>,
     IEventHandler<PaymentSuccessEvent>,
-    IEventHandler<PaymentFinalizedFailEvent>
-
+    IEventHandler<PaymentFinalizedFailEvent>,
+    IEventHandler<PaymentFinalizedEvent>
 {
     private readonly IAirlineClient _airlineClient;
     private readonly ISagaService _service;
@@ -158,5 +158,18 @@ public class AirlinesSagaOrchestrator :
         };
 
         await _airlineClient.Publish<RevertBookingCommand>(command);
+    }
+
+    public async Task HandleAsync(PaymentFinalizedEvent message, CancellationToken ct)
+    {
+        var finalfinalEvent = new BookingFlowCompleteEvent
+        {
+            SagaId = message.SagaId,
+            BookingId = message.BookingId,
+            PaymentId = message.PaymentId,
+            Message = "it is all done..."
+        };
+
+        await _airlineClient.Publish<BookingFlowCompleteEvent>(finalfinalEvent);
     }
 }

@@ -69,6 +69,9 @@ builder.Services.AddSubscription<BookingStartedEvent>("booking-started-" + Guid.
 builder.Services.AddSubscription<PaymentSuccessEvent>("payment-success-" + Guid.NewGuid());
 builder.Services.AddSubscription<PaymentFailEvent>("payment-failed-" + Guid.NewGuid());
 builder.Services.AddSubscription<PaymentFinalizedFailEvent>("payment-finalized-failed-" + Guid.NewGuid());
+builder.Services.AddSubscription<PaymentFinalizedEvent>("payment-finalized-" + Guid.NewGuid());
+
+
 //builder.Services.AddSubscription<StartPaymentEvent>("start-payment-" + Guid.NewGuid());
 
 
