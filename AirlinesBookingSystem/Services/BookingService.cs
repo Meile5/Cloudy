@@ -28,13 +28,14 @@ public class BookingService(IBookingRepository repo, IAirlineClient client, ISea
         }
     }
 
-    public async Task AddBooking(CreateBookingDto booking)
+    public async Task<Booking> AddBooking(CreateBookingDto booking)
     {
         var newBooking = CreateBookingDto.ToBooking(booking);
         await repo.AddBooking(newBooking);
 
         await seatService.SellSeat(booking.SeatId);
 
+        return newBooking;
         //once booking is made, seat is no longer available
         //so we also update mongodb
         /*var command = new MongoRemoveSeatCommand()

@@ -59,6 +59,7 @@ builder.Services.AddRabbitMqMessageClient(options);
 
 builder.Services.AddSubscription<StartPaymentEvent>("new-subscriber-" + Guid.NewGuid());
 builder.Services.AddSubscription<RefundPaymentEvent>("new-subscriber-" + Guid.NewGuid());
+builder.Services.AddSubscription<FinishPaymentEvent>("new-subscriber-" + Guid.NewGuid());
 
 
 var app = builder.Build();

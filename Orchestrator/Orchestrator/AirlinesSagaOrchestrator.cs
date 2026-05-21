@@ -70,9 +70,23 @@ public class AirlinesSagaOrchestrator :
     //booking success
     public async Task HandleAsync(BookingSuccessEvent message, CancellationToken ct)
     {
+        //make payment not pending
+        var command = new FinishPaymentEvent
+        {
+            SagaId = message.SagaId,
+            BookingId = message.BookingId,
+            PaymentId = message.PaymentId,
+            Message = "lets finish this already"
+        };
+
+        await _airlineClient.Publish<FinishPaymentEvent>(command);
+
+        //update saga
         var state = new SagaState
         {
             SagaId = message.SagaId,
+            PaymentId = message.PaymentId,
+            BookingId = message.BookingId,
             BookingProcessed = true,
             PaymentProcessed = true,
             IsCompleted = true,
