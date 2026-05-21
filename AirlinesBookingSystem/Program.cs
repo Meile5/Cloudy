@@ -101,6 +101,9 @@ builder.Services.AddSubscription<PaymentSuccessStartBookingEvent>("new-subscribe
 builder.Services.AddSubscription<MongoAddSeatCommand>("mongo-seat-" + Guid.NewGuid());
 builder.Services.AddSubscription<MongoRemoveSeatCommand>("remove-set-" + Guid.NewGuid());
 builder.Services.AddSubscription<MongoAddFlightCommand>("mongo-add-flight-" + Guid.NewGuid());
+builder.Services.AddSubscription<RevertBookingCommand>("remove-booking-" + Guid.NewGuid());
+builder.Services.AddSubscription<PaymentFailReleaseSeatEvent>("release-seat-" + Guid.NewGuid());
+
 
 
 
