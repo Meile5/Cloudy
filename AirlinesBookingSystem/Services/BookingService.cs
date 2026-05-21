@@ -7,7 +7,7 @@ using Shared.Events;
 
 namespace AirlinesBookingSystem.Services;
 
-public class BookingService(IBookingRepository repo, IAirlineClient client, ISeatLockService seatLockService, ISeatRepository seatRepo ) : IBookingService
+public class BookingService(IBookingRepository repo, IAirlineClient client, ISeatLockService seatLockService, ISeatService seatService ) : IBookingService
 {
     public async Task<List<Booking>> GetAllBookings()
     {
@@ -28,19 +28,22 @@ public class BookingService(IBookingRepository repo, IAirlineClient client, ISea
         }
     }
 
-    public async Task AddBooking(CreateBookingDto booking)
+    public async Task<Booking> AddBooking(CreateBookingDto booking)
     {
         var newBooking = CreateBookingDto.ToBooking(booking);
         await repo.AddBooking(newBooking);
 
+        await seatService.SellSeat(booking.SeatId);
+
+        return newBooking;
         //once booking is made, seat is no longer available
         //so we also update mongodb
-        var command = new MongoRemoveSeatCommand()
+        /*var command = new MongoRemoveSeatCommand()
         {
             flightId = booking.FlightId,
             seatId = booking.SeatId,
         };
-        await client.Publish<MongoRemoveSeatCommand>(command);
+        await client.Publish<MongoRemoveSeatCommand>(command);*/
     }
 
     public async Task UpdateBooking(Booking booking)
@@ -75,6 +78,9 @@ public class BookingService(IBookingRepository repo, IAirlineClient client, ISea
             FlightId = booking.FlightId,
             SeatId = booking.SeatId,
             Amount = booking.Price,
+            CardNumber = booking.CardNumber!,
+            Currency = booking.Currency!,
+            
         });
 
         return (true, null);

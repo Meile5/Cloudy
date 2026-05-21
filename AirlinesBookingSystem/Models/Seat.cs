@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AirlinesBookingSystem.Models;
 
@@ -21,6 +22,7 @@ public partial class Seat
 
     public DateTime? CreatedAt { get; set; }
 
+    [ConcurrencyCheck]
     public DateTime? UpdatedAt { get; set; }
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();

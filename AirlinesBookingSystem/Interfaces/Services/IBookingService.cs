@@ -9,7 +9,7 @@ public interface IBookingService
 
     public  Task<Booking> GetBookingById(string bookingId);
 
-    public  Task AddBooking(CreateBookingDto booking);
+    public  Task<Booking> AddBooking(CreateBookingDto booking);
 
     public Task UpdateBooking(Booking booking);
 

@@ -20,7 +20,7 @@ public class BookingController(IBookingService service) : ControllerBase
 
     [HttpPost]
     [Route("/Add-Booking")]
-    public async Task<IActionResult> AddBooking(CreateBookingDto booking)
+    public async Task<IActionResult> AddBooking([FromBody] CreateBookingDto booking)
     {
         var (success, message) = await service.InitiateBookingAsync(booking);
 

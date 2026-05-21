@@ -1,4 +1,5 @@
 ﻿using AirlinesBookingSystem.DTOs.Create;
+using AirlinesBookingSystem.DTOs.Update;
 using AirlinesBookingSystem.Interfaces;
 using AirlinesBookingSystem.Interfaces.Repositories;
 using AirlinesBookingSystem.Interfaces.Services;
@@ -38,8 +39,22 @@ public class SeatService(ISeatRepository repo, IAirlineClient client) : ISeatSer
         await repo.AddSeat(newSeat);
     }
     
-    public async Task UpdateSeat(Seat seat)
+    public async Task UpdateSeat(UpdateSeatDto seat)
     {
+        var newSeat = UpdateSeatDto.toSeat(seat);
+        
+        await UpdateMongoSeats(newSeat);
+        
+        await repo.UpdateSeat(newSeat);
+    }
+    
+    public async Task SellSeat(string seatId)
+    {
+        var seat = await GetSeatById(seatId);
+
+        seat.Status = "sold";
+        seat.UpdatedAt = DateTime.Now;
+        
         await UpdateMongoSeats(seat);
         
         await repo.UpdateSeat(seat);

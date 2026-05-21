@@ -14,6 +14,10 @@ public class CreateBookingDto
     
     public string SeatId { get; set; } = null!;
     
+    public string? CardNumber { get; set; } = null!;
+
+    public string? Currency { get; set; } = null!;
+    
     public static Booking ToBooking(CreateBookingDto dto)
     {
         return new Booking

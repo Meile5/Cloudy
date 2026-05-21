@@ -12,8 +12,9 @@ public class AirlinesSagaOrchestrator :
     IEventHandler<BookingStartedEvent>,
     IEventHandler<BookingSuccessEvent>,
     IEventHandler<PaymentFailEvent>,
-    IEventHandler<PaymentSuccessEvent>
-    
+    IEventHandler<PaymentSuccessEvent>,
+    IEventHandler<PaymentFinalizedFailEvent>,
+    IEventHandler<PaymentFinalizedEvent>
 {
     private readonly IAirlineClient _airlineClient;
     private readonly ISagaService _service;
@@ -60,7 +61,9 @@ public class AirlinesSagaOrchestrator :
             PassengerId = booking.PassengerId,
             FlightId = booking.FlightId,
             Amount = booking.Amount,
-            SeatId = booking.SeatId
+            SeatId = booking.SeatId,
+            CardNumber = booking.CardNumber,
+            Currency = booking.Currency,
             
         });
     }
@@ -68,7 +71,29 @@ public class AirlinesSagaOrchestrator :
     //booking success
     public async Task HandleAsync(BookingSuccessEvent message, CancellationToken ct)
     {
-        //throw new NotImplementedException();
+        //make payment not pending
+        var command = new FinishPaymentEvent
+        {
+            SagaId = message.SagaId,
+            BookingId = message.BookingId,
+            PaymentId = message.PaymentId,
+            Message = "lets finish this already"
+        };
+
+        await _airlineClient.Publish<FinishPaymentEvent>(command);
+
+        //update saga
+        var state = new SagaState
+        {
+            SagaId = message.SagaId,
+            PaymentId = message.PaymentId,
+            BookingId = message.BookingId,
+            BookingProcessed = true,
+            PaymentProcessed = true,
+            IsCompleted = true,
+            IsFailed = false,
+        };
+        await _service.Update(state);
     }
     
 
@@ -79,7 +104,6 @@ public class AirlinesSagaOrchestrator :
         {
             SagaId = message.SagaId,
             Message = message.Message,
-            PaymentId = message.PaymentId,
             PassengerId = message.PassengerId,
             FlightId = message.FlightId,
             SeatId = message.SeatId
@@ -121,5 +145,31 @@ public class AirlinesSagaOrchestrator :
         };
         
         await _service.Update(updatedState);
+    }
+
+    public async Task HandleAsync(PaymentFinalizedFailEvent message, CancellationToken ct)
+    {
+        var command = new RevertBookingCommand
+        {
+            SagaId = message.SagaId,
+            BookingId = message.BookingId,
+            PaymentId = message.PaymentId,
+            Message = "delete this booking"
+        };
+
+        await _airlineClient.Publish<RevertBookingCommand>(command);
+    }
+
+    public async Task HandleAsync(PaymentFinalizedEvent message, CancellationToken ct)
+    {
+        var finalfinalEvent = new BookingFlowCompleteEvent
+        {
+            SagaId = message.SagaId,
+            BookingId = message.BookingId,
+            PaymentId = message.PaymentId,
+            Message = "it is all done..."
+        };
+
+        await _airlineClient.Publish<BookingFlowCompleteEvent>(finalfinalEvent);
     }
 }

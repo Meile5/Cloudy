@@ -55,12 +55,6 @@ foreach (var handler in handlers)
         }
     }
     
-    /*
-    var interfaceType = handler.GetInterfaces()
-        .First(i => i.IsGenericType &&
-                    i.GetGenericTypeDefinition() == handlerType);
-
-    builder.Services.AddScoped(interfaceType, handler);*/
 }
 
 //inject rabbitmq client
@@ -73,8 +67,12 @@ builder.Services.AddSubscription<BookingFailEvent>("booking-failed-" + Guid.NewG
 builder.Services.AddSubscription<BookingStartedEvent>("booking-started-" + Guid.NewGuid());
 
 builder.Services.AddSubscription<PaymentSuccessEvent>("payment-success-" + Guid.NewGuid());
-builder.Services.AddSubscription<PayentFailEvent>("payment-failed-" + Guid.NewGuid());
-builder.Services.AddSubscription<StartPaymentEvent>("start-payment-" + Guid.NewGuid());
+builder.Services.AddSubscription<PaymentFailEvent>("payment-failed-" + Guid.NewGuid());
+builder.Services.AddSubscription<PaymentFinalizedFailEvent>("payment-finalized-failed-" + Guid.NewGuid());
+builder.Services.AddSubscription<PaymentFinalizedEvent>("payment-finalized-" + Guid.NewGuid());
+
+
+//builder.Services.AddSubscription<StartPaymentEvent>("start-payment-" + Guid.NewGuid());
 
 
 var host = builder.Build();
