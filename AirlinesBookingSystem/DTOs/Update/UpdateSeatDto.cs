@@ -33,4 +33,15 @@ public class UpdateSeatDto
         };
     }
     
+    public static Seat UpdateSeat(Seat seat, UpdateSeatDto dto)
+    {
+        seat.SeatNumber = dto.SeatNumber;
+        seat.CabinClass = dto.CabinClass;
+        seat.FareClass = dto.FareClass;
+        seat.Status = dto.Status;
+        seat.Price = dto.Price;
+        seat.UpdatedAt = DateTime.Now;
+        return seat;
+    }
+    
 }
