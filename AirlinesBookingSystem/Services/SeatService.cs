@@ -41,11 +41,13 @@ public class SeatService(ISeatRepository repo, IAirlineClient client) : ISeatSer
     
     public async Task UpdateSeat(UpdateSeatDto seat)
     {
-        var newSeat = UpdateSeatDto.toSeat(seat);
+        var seatToupdate = await GetSeatById(seat.Id);
         
-        await repo.UpdateSeat(newSeat);
+        seatToupdate = UpdateSeatDto.UpdateSeat(seatToupdate, seat);
         
-        await UpdateMongoSeats(newSeat);
+        await repo.UpdateSeat(seatToupdate);
+        
+        await UpdateMongoSeats(seatToupdate);
     }
     
     public async Task SellSeat(string seatId)
