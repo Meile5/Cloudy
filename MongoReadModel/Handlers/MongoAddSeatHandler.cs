@@ -13,6 +13,7 @@ public class MongoAddSeatHandler(IMongoFlightService service ) : IEventHandler<M
             Id = message.seatId,
             CabinClass = message.CabinClass,
             FareClass = message.FareClass ?? null,
+            Status = message.Status,
             Price = message.Price,
             SeatNumber = message.SeatNumber,
         };
