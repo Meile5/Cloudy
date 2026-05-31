@@ -9,6 +9,6 @@ public class PaymentFailHandler(
 {
     public async Task HandleAsync(PaymentFailReleaseSeatEvent message, CancellationToken ct)
     {
-        await seatLockService.ReleaseSeatAsync(message.FlightId, message.SeatId);
+        await seatLockService.ReleaseSeatAsync(message.FlightId, message.SeatId, message.SagaId.ToString());
     }
 }
