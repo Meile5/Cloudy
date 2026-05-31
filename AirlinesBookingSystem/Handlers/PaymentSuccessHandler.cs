@@ -25,7 +25,7 @@ public class PaymentSuccessHandler(
         {
             var finalBooking = await service.AddBooking(bookingDto);
             // release lock
-            await seatLockService.ReleaseSeatAsync(message.FlightId, message.SeatId);
+            await seatLockService.ReleaseSeatAsync(message.FlightId, message.SeatId, message.SagaId.ToString());
 
             await client.Publish(new BookingSuccessEvent
             {

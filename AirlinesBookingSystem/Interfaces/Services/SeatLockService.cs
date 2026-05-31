@@ -18,9 +18,13 @@ public class SeatLockService : ISeatLockService
         return await _redis.StringSetAsync(key, sagaId, _lockTtl, When.NotExists);
     }
 
-    public async Task ReleaseSeatAsync(string flightId, string seatId)
+    public async Task ReleaseSeatAsync(string flightId, string seatId, string  sagaId)
     {
         var key = $"seat_lock:{flightId}:{seatId}";
-        await _redis.KeyDeleteAsync(key);
+        var value = await _redis.StringGetAsync(key);
+        if (value == sagaId)
+        {
+            await _redis.KeyDeleteAsync(key);
+        }
     }
 }
