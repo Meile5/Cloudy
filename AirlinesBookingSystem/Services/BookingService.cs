@@ -36,14 +36,6 @@ public class BookingService(IBookingRepository repo, IAirlineClient client, ISea
         await seatService.SellSeat(booking.SeatId);
 
         return newBooking;
-        //once booking is made, seat is no longer available
-        //so we also update mongodb
-        /*var command = new MongoRemoveSeatCommand()
-        {
-            flightId = booking.FlightId,
-            seatId = booking.SeatId,
-        };
-        await client.Publish<MongoRemoveSeatCommand>(command);*/
     }
 
     public async Task UpdateBooking(Booking booking)

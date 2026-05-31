@@ -4,7 +4,7 @@ using Shared.Events;
 
 namespace AirlinesBookingSystem.Handlers;
 
-public class MongoAddSeatHandler(IMongoFlightRepository repo ) : IEventHandler<MongoAddSeatCommand>
+public class MongoAddSeatHandler(IMongoFlightService service ) : IEventHandler<MongoAddSeatCommand>
 {
     public async Task HandleAsync(MongoAddSeatCommand message, CancellationToken ct)
     {
@@ -17,6 +17,6 @@ public class MongoAddSeatHandler(IMongoFlightRepository repo ) : IEventHandler<M
             SeatNumber = message.SeatNumber,
         };
 
-        await repo.UpsertAvailableSeat(message.flightId, seat);
+        await service.UpsertAvailableSeat(message.flightId, seat);
     }
 }

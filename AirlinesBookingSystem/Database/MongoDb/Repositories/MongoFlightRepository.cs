@@ -28,25 +28,10 @@ public class MongoFlightRepository : IMongoFlightRepository
     {
         return await _flights.Find(_ => true).ToListAsync();
     }
-    
-    public async Task<List<MongoFlights>> GetSoonestFlights(int limit = 15)
-    {
-        return await _flights.Find(_ => true)
-            .SortByDescending(flight => flight.DepartureTime)
-            .Limit(limit)
-            .ToListAsync();
-    }
 
-    public async Task UpdatePost(MongoFlights flight)
+    public async Task UpdateFlight(MongoFlights flight)
     {
         await _flights.ReplaceOneAsync(f => f.Id == flight.Id, flight);
-    }
-
-    public async Task AddAvailableSeat(string flightId, MongoSeats seat)
-    {
-        await _flights.UpdateOneAsync(
-            f => f.Id == flightId, 
-            Builders<MongoFlights>.Update.Push(f => f.AvailableSeats, seat));
     }
     
     public async Task UpsertAvailableSeat(string flightId, MongoSeats seat)
@@ -59,15 +44,14 @@ public class MongoFlightRepository : IMongoFlightRepository
     
     public async Task DeleteAvailableSeat(string flightId, string seatId)
     {
-        var newpost = await GetFlightById(flightId);
+        var newFlight = await GetFlightById(flightId);
 
-        newpost.AvailableSeats.RemoveAll(s => s.Id == seatId);
+        newFlight.AvailableSeats.RemoveAll(s => s.Id == seatId);
         
-        await UpdatePost(newpost);
-
+        await UpdateFlight(newFlight);
     }
 
-    public async Task DeletePost(string id)
+    public async Task DeleteFlight(string id)
     {
         await _flights.DeleteOneAsync(f => f.Id == id);
     }

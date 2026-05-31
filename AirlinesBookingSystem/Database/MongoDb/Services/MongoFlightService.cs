@@ -21,20 +21,10 @@ public class MongoFlightService(IMongoFlightRepository repo) : IMongoFlightServi
     {
         return await repo.GetAllFlights();
     }
-    
-    public async Task<List<MongoFlights>> GetSoonestFlights(int limit = 15)
-    {
-        return await repo.GetSoonestFlights(limit);
-    }
 
-    public async Task UpdatePost(MongoFlights flight)
+    public async Task UpdateFlight(MongoFlights flight)
     {
-        await repo.UpdatePost(flight);
-    }
-
-    public async Task AddAvailableSeat(string flightId, MongoSeats seat)
-    {
-        await repo.AddAvailableSeat(flightId, seat);
+        await repo.UpdateFlight(flight);
     }
     
     public async Task UpsertAvailableSeat(string flightId, MongoSeats seat)
@@ -47,8 +37,8 @@ public class MongoFlightService(IMongoFlightRepository repo) : IMongoFlightServi
         await repo.DeleteAvailableSeat(flightId, seatId);
     }
 
-    public async Task DeletePost(string id)
+    public async Task DeleteFlight(string id)
     {
-        await repo.DeletePost(id);
+        await repo.DeleteFlight(id);
     }
 }

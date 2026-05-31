@@ -19,15 +19,6 @@ public class PassengerController(IPassengerService service) : ControllerBase
 
     }
     
-    /*[HttpGet]
-    [Route("/Get-Passneger-By-Id")]
-    public async Task<IActionResult> GetPassengerById([FromQuery] string passengerId)
-    {
-        var flight = await service.GetPassengerById(passengerId);
-
-        return Ok(flight);
-        
-    }*/
     
     [HttpPost]
     [Route("/Add-Passenger")]
@@ -45,11 +36,5 @@ public class PassengerController(IPassengerService service) : ControllerBase
         return Ok();
     }
     
-    /*[HttpDelete]
-    [Route("/Delete-Passneger")]
-    public async Task<IActionResult> DeletePassenger(string passengerId)
-    {
-        await service.DeletePassenger(passengerId);
-        return Ok();
-    }*/
+    
 }

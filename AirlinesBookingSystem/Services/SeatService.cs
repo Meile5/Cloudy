@@ -34,18 +34,20 @@ public class SeatService(ISeatRepository repo, IAirlineClient client) : ISeatSer
     {
         var newSeat = CreateSeatDto.ToSeat(seat);
         
-        await UpdateMongoSeats(newSeat);
-        
         await repo.AddSeat(newSeat);
+        
+        await UpdateMongoSeats(newSeat);
     }
     
     public async Task UpdateSeat(UpdateSeatDto seat)
     {
-        var newSeat = UpdateSeatDto.toSeat(seat);
+        var seatToupdate = await GetSeatById(seat.Id);
         
-        await UpdateMongoSeats(newSeat);
+        seatToupdate = UpdateSeatDto.UpdateSeat(seatToupdate, seat);
         
-        await repo.UpdateSeat(newSeat);
+        await repo.UpdateSeat(seatToupdate);
+        
+        await UpdateMongoSeats(seatToupdate);
     }
     
     public async Task SellSeat(string seatId)
@@ -55,9 +57,9 @@ public class SeatService(ISeatRepository repo, IAirlineClient client) : ISeatSer
         seat.Status = "sold";
         seat.UpdatedAt = DateTime.Now;
         
-        await UpdateMongoSeats(seat);
-        
         await repo.UpdateSeat(seat);
+        
+        await UpdateMongoSeats(seat);
     }
 
     public async Task UpdateMongoSeats(Seat seat)

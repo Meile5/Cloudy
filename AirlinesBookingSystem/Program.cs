@@ -45,9 +45,7 @@ builder.Services.AddScoped<IFlightRepository, FlightRepository>();
 builder.Services.AddScoped<IPassengerRepository, PassengerRepository>();
 builder.Services.AddScoped<ISeatRepository, SeatRepository>();
 
-builder.Services.AddScoped<IMongoSeatRepository, MongoSeatRepository>();
 builder.Services.AddScoped<IMongoFlightRepository, MongoFlightRepository>();
-builder.Services.AddScoped<IMongoSeatService, MongoSeatService>();
 builder.Services.AddScoped<IMongoFlightService, MongoFlightService>();
 
 builder.Services.AddScoped<IBookingService, BookingService>();
